@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,10 +18,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
         return view('home');
     })->name('home');
 
-    Route::get('surat-masuk', function() {
-        return view('admin.surat_masuk.surat-masuk');
-    })->name('surat-masuk');
-
     Route::get('surat-keluar', function() {
         return view('admin.surat_keluar.surat-keluar');
     })->name('surat-keluar');
@@ -33,4 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('user', UserController::class);
     Route::post('profile/update/{user}', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+
+
+    /*----------------------------------------SURAT MASUK--------------------------------------*/
+    Route::resource('suratMasuk', SuratMasukController::class);
 });

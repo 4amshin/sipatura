@@ -26,8 +26,8 @@
                 </li>
 
                 <!--Surat Masuk-->
-                <li class="menu-item  {{ Request::is('surat-masuk*') ? 'active' : '' }}">
-                    <a href="{{ route('surat-masuk') }}" class='menu-link'>
+                <li class="menu-item  {{ Request::is('suratMasuk*') ? 'active' : '' }}">
+                    <a href="{{ route('suratMasuk.index') }}" class='menu-link'>
                         <span></i> Surat Masuk</span>
                     </a>
                 </li>

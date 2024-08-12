@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +19,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
         return view('home');
     })->name('home');
 
-    Route::get('surat-keluar', function() {
-        return view('admin.surat_keluar.surat-keluar');
-    })->name('surat-keluar');
-
     Route::get('laporan', function() {
         return view('admin.laporan.laporan');
     })->name('laporan');
@@ -34,4 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     /*----------------------------------------SURAT MASUK--------------------------------------*/
     Route::resource('suratMasuk', SuratMasukController::class);
+
+
+    /*----------------------------------------SURAT Keluar--------------------------------------*/
+    Route::resource('suratKeluar', SuratKeluarController::class);
 });

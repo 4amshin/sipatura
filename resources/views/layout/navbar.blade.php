@@ -33,8 +33,8 @@
                 </li>
 
                 <!--Surat Keluar-->
-                <li class="menu-item  {{ Request::is('surat-keluar*') ? 'active' : '' }}">
-                    <a href="{{ route('surat-keluar') }}" class='menu-link'>
+                <li class="menu-item  {{ Request::is('suratKeluar*') ? 'active' : '' }}">
+                    <a href="{{ route('suratKeluar.index') }}" class='menu-link'>
                         <span></i> Surat Keluar</span>
                     </a>
                 </li>

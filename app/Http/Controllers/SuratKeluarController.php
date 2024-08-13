@@ -23,7 +23,7 @@ class SuratKeluarController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.surat_keluar.tambah_surat_keluar');
     }
 
     /**
@@ -31,7 +31,11 @@ class SuratKeluarController extends Controller
      */
     public function store(StoreSuratKeluarRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        SuratKeluar::create($validatedData);
+
+        return redirect()->route('suratKeluar.index')->with('success', 'Surat Keluar berhasil ditambahkan');
     }
 
     /**
@@ -47,7 +51,7 @@ class SuratKeluarController extends Controller
      */
     public function edit(SuratKeluar $suratKeluar)
     {
-        //
+        return view('admin.surat_keluar.update_surat_keluar', compact('suratKeluar'));
     }
 
     /**
@@ -55,7 +59,11 @@ class SuratKeluarController extends Controller
      */
     public function update(UpdateSuratKeluarRequest $request, SuratKeluar $suratKeluar)
     {
-        //
+        $validatedData = $request->validated();
+
+        $suratKeluar->update($validatedData);
+
+        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar DiPerbarui');
     }
 
     /**
@@ -63,6 +71,8 @@ class SuratKeluarController extends Controller
      */
     public function destroy(SuratKeluar $suratKeluar)
     {
-        //
+        $suratKeluar->delete();
+
+        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar Telah Dihapus');
     }
 }

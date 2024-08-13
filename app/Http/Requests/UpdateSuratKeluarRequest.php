@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSuratKeluarRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateSuratKeluarRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,17 @@ class UpdateSuratKeluarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nomor_surat' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('surat_keluars', 'nomor_surat')->ignore($this->route('suratKeluar'))
+            ],
+            'tanggal_keluar' => 'required|date',
+            'isi_ringkasan' => 'required|string',
+            'keterangan' => 'nullable|string',
+            'lokasi_file' => 'nullable|string|max:255',
+            'alamat' => 'required|string',
         ];
     }
 }

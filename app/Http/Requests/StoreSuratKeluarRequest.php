@@ -11,7 +11,7 @@ class StoreSuratKeluarRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreSuratKeluarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nomor_surat' => 'required|string|unique:surat_keluars,nomor_surat|max:255',
+            'tanggal_keluar' => 'required|date',
+            'isi_ringkasan' => 'required|string',
+            'keterangan' => 'nullable|string',
+            'lokasi_file' => 'nullable|string|max:255',
+            'alamat' => 'required|string',
         ];
     }
 }

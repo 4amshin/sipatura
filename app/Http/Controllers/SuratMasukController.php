@@ -15,7 +15,7 @@ class SuratMasukController extends Controller
     {
         $daftarSuratMasuk = SuratMasuk::all();
 
-        return view('admin.surat_masuk.surat-masuk', compact('daftarSuratMasuk'));
+        return view('admin.surat_masuk.surat_masuk', compact('daftarSuratMasuk'));
     }
 
     /**
@@ -23,7 +23,7 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.surat_masuk.tambah_surat_masuk');
     }
 
     /**
@@ -31,7 +31,12 @@ class SuratMasukController extends Controller
      */
     public function store(StoreSuratMasukRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        SuratMasuk::create($validatedData);
+
+        return redirect()->route('suratMasuk.index')->with('success', 'Surat Masuk berhasil ditambahkan');
+
     }
 
     /**
@@ -47,7 +52,7 @@ class SuratMasukController extends Controller
      */
     public function edit(SuratMasuk $suratMasuk)
     {
-        //
+        return view('admin.surat_masuk.update_surat_masuk', compact('suratMasuk'));
     }
 
     /**
@@ -55,7 +60,11 @@ class SuratMasukController extends Controller
      */
     public function update(UpdateSuratMasukRequest $request, SuratMasuk $suratMasuk)
     {
-        //
+        $validatedData = $request->validated();
+
+        $suratMasuk->update($validatedData);
+
+        return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk DiPerbarui');
     }
 
     /**
@@ -63,6 +72,9 @@ class SuratMasukController extends Controller
      */
     public function destroy(SuratMasuk $suratMasuk)
     {
-        //
+        $suratMasuk->delete();
+
+        return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk Telah Dihapus');
+
     }
 }

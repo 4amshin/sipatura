@@ -1,16 +1,16 @@
 @extends('layout.app')
 
-@section('title', 'Surat Keluar')
+@section('title', 'Surat Masuk')
 
 @section('content')
     <!--Notifikasi-->
-    @include('layout.page-alert')
+    @include('layout.page_alert')
 
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <!--Tombol Tambah Surat Keluar-->
-                <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Keluar</a>
+                <!--Tombol Tambah Surat Masuk-->
+                <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Masuk</a>
 
                 <!--Tabel-->
                 <table class="table table-striped" id="table1">
@@ -19,7 +19,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nomor Surat</th>
-                            <th>Tanggal Keluar</th>
+                            <th>Tanggal Masuk</th>
                             <th>Isi Ringkasan</th>
                             <th>Keterangan</th>
                             <th>Lokasi File</th>
@@ -29,19 +29,19 @@
 
                     <!--Body-->
                     <tbody>
-                        @forelse ($daftarSuratKeluar as $suratKeluar)
+                        @forelse ($daftarSuratMasuk as $suratMasuk)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     <span class="badge bg-light-info">
-                                        {{ $suratKeluar->nomor_surat }}
+                                        {{ $suratMasuk->nomor_surat }}
                                     </span>
                                 </td>
-                                <td>{{ $suratKeluar->tanggal_keluar }}</td>
-                                <td>{{ $suratKeluar->isi_ringkasan }}</td>
-                                <td>{{ $suratKeluar->keterangan }}</td>
-                                <td>{{ $suratKeluar->lokasi_file }}</td>
-                                <td>{{ $suratKeluar->alamat }}</td>
+                                <td>{{ $suratMasuk->tanggal_masuk }}</td>
+                                <td>{{ $suratMasuk->isi_ringkasan }}</td>
+                                <td>{{ $suratMasuk->keterangan }}</td>
+                                <td>{{ $suratMasuk->lokasi_file }}</td>
+                                <td>{{ $suratMasuk->alamat }}</td>
                                 @can('super-user')
                                     <td>
                                         <div class="dropdown">
@@ -51,12 +51,12 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <!--Tombol Update-->
-                                                <a href="{{ route('suratKeluar.edit', $suratKeluar->id) }}" class="dropdown-item">
+                                                <a href="{{ route('suratMasuk.edit', $suratMasuk->id) }}" class="dropdown-item">
                                                     <i class="bi bi-pen"></i> Edit
                                                 </a>
 
                                                 <!--Tombol Hapus-->
-                                                <form action="{{ route('suratKeluar.destroy', $suratKeluar->id) }}"
+                                                <form action="{{ route('suratMasuk.destroy', $suratMasuk->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')

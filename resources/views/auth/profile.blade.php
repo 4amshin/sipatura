@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Alert -->
-    @include('layout.page-alert')
+    @include('layout.page_alert')
 
     <div class="row">
         <div class="col-md-12">

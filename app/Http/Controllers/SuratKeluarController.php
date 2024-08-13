@@ -15,7 +15,7 @@ class SuratKeluarController extends Controller
     {
         $daftarSuratKeluar = SuratKeluar::all();
 
-        return view('admin.surat_keluar.surat-keluar', compact('daftarSuratKeluar'));
+        return view('admin.surat_keluar.surat_keluar', compact('daftarSuratKeluar'));
     }
 
     /**

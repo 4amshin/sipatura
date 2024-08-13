@@ -25,19 +25,21 @@
                     </a>
                 </li>
 
-                <!--Surat Masuk-->
-                <li class="menu-item  {{ Request::is('suratMasuk*') ? 'active' : '' }}">
-                    <a href="{{ route('suratMasuk.index') }}" class='menu-link'>
-                        <span></i> Surat Masuk</span>
-                    </a>
-                </li>
+                @can('super-user')
+                    <!--Surat Masuk-->
+                    <li class="menu-item  {{ Request::is('suratMasuk*') ? 'active' : '' }}">
+                        <a href="{{ route('suratMasuk.index') }}" class='menu-link'>
+                            <span></i> Surat Masuk</span>
+                        </a>
+                    </li>
 
-                <!--Surat Keluar-->
-                <li class="menu-item  {{ Request::is('suratKeluar*') ? 'active' : '' }}">
-                    <a href="{{ route('suratKeluar.index') }}" class='menu-link'>
-                        <span></i> Surat Keluar</span>
-                    </a>
-                </li>
+                    <!--Surat Keluar-->
+                    <li class="menu-item  {{ Request::is('suratKeluar*') ? 'active' : '' }}">
+                        <a href="{{ route('suratKeluar.index') }}" class='menu-link'>
+                            <span></i> Surat Keluar</span>
+                        </a>
+                    </li>
+                @endcan
 
                 <!--Laporan-->
                 <li class="menu-item  {{ Request::is('laporan*') ? 'active' : '' }}">
@@ -50,7 +52,8 @@
                 <li class="menu-item  ">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class='menu-link' style="background: none; border: none; cursor: pointer;">
+                        <button type="submit" class='menu-link'
+                            style="background: none; border: none; cursor: pointer;">
                             <span>LogOut</span>
                         </button>
                     </form>

@@ -10,7 +10,6 @@
         <div class="card">
             <div class="card-body">
                 <!--Tombol Tambah Surat Masuk-->
-                {{-- <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Masuk</a> --}}
                 <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
                     data-bs-target="#tambahSuratMasukModal">
                     Tambah Surat Masuk
@@ -24,7 +23,7 @@
                             <th>No</th>
                             <th>Nomor Surat</th>
                             <th>Tanggal Surat</th>
-                            <th>Tanggal Masuk</th>
+                            <th>Diterima Tanggal</th>
                             <th>Pengirim</th>
                             <th>Perihal</th>
                         </tr>

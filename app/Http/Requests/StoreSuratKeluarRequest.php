@@ -23,11 +23,11 @@ class StoreSuratKeluarRequest extends FormRequest
     {
         return [
             'nomor_surat' => 'required|string|unique:surat_keluars,nomor_surat|max:255',
+            'tanggal_surat' => 'required|date',
             'tanggal_keluar' => 'required|date',
-            'isi_ringkasan' => 'required|string',
-            'keterangan' => 'nullable|string',
-            'lokasi_file' => 'nullable|string|max:255',
-            'alamat' => 'required|string',
+            'kepada' => 'required|string',
+            'perihal' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
         ];
     }
 }

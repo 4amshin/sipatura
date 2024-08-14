@@ -29,11 +29,11 @@ class UpdateSuratKeluarRequest extends FormRequest
                 'max:255',
                 Rule::unique('surat_keluars', 'nomor_surat')->ignore($this->route('suratKeluar'))
             ],
+            'tanggal_surat' => 'required|date',
             'tanggal_keluar' => 'required|date',
-            'isi_ringkasan' => 'required|string',
-            'keterangan' => 'nullable|string',
-            'lokasi_file' => 'nullable|string|max:255',
-            'alamat' => 'required|string',
+            'kepada' => 'required|string',
+            'perihal' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
         ];
     }
 }

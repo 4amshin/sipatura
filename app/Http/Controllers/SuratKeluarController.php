@@ -13,9 +13,9 @@ class SuratKeluarController extends Controller
      */
     public function index()
     {
-        $daftarSuratKeluar = SuratKeluar::all();
+        $daftarSuratKeluar = SuratKeluar::orderBy('tanggal_keluar', 'desc')->get();
 
-        return view('admin.surat_keluar.surat_keluar', compact('daftarSuratKeluar'));
+        return view('admin.surat_keluar.daftar_surat_keluar', compact('daftarSuratKeluar'));
     }
 
     /**

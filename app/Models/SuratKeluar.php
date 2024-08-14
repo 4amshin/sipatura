@@ -11,11 +11,10 @@ class SuratKeluar extends Model
 
     protected $fillable = [
         'nomor_surat',
+        'tanggal_surat',
         'tanggal_keluar',
-        'isi_ringkasan',
-        'keterangan',
-        'lokasi_file',
-        'alamat',
-        'file',
+        'kepada',
+        'perihal',
+        'file'
     ];
 }

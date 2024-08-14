@@ -10,7 +10,10 @@
         <div class="card">
             <div class="card-body">
                 <!--Tombol Tambah Surat Keluar-->
-                <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Keluar</a>
+                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
+                    data-bs-target="#tambahSuratKeluarModal">
+                    Tambah Surat Keluar
+                </button>
 
                 <!--Tabel-->
                 <table class="table table-striped" id="table1">
@@ -19,11 +22,10 @@
                         <tr>
                             <th>No</th>
                             <th>Nomor Surat</th>
-                            <th>Tanggal Keluar</th>
-                            <th>Isi Ringkasan</th>
-                            <th>Keterangan</th>
-                            <th>Lokasi File</th>
-                            <th>Alamat</th>
+                            <th>Tanggal Surat</th>
+                            <th>Dikirim Tanggal</th>
+                            <th>Kepada</th>
+                            <th>Perihal</th>
                         </tr>
                     </thead>
 
@@ -37,11 +39,14 @@
                                         {{ $suratKeluar->nomor_surat }}
                                     </span>
                                 </td>
-                                <td>{{ $suratKeluar->tanggal_keluar }}</td>
-                                <td>{{ $suratKeluar->isi_ringkasan }}</td>
-                                <td>{{ $suratKeluar->keterangan }}</td>
-                                <td>{{ $suratKeluar->lokasi_file }}</td>
-                                <td>{{ $suratKeluar->alamat }}</td>
+                                <td>{{ \Carbon\Carbon::parse($suratKeluar->tanggal_surat)->format('d/m/Y') }}</td>
+                                <td>
+                                    <span class="badge bg-light-primary">
+                                        {{ \Carbon\Carbon::parse($suratKeluar->tanggal_Keluar)->format('d/m/Y') }}
+                                    </span>
+                                </td>
+                                <td>{{ $suratKeluar->kepada }}</td>
+                                <td>{{ $suratKeluar->perihal }}</td>
                                 @can('super-user')
                                     <td>
                                         <div class="dropdown">
@@ -79,4 +84,6 @@
         </div>
 
     </section>
+    <!---Modal Tambah Surat Masuk-->
+    @include('admin.surat_keluar.modal_tambah_surat_keluar')
 @endsection

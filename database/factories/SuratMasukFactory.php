@@ -18,11 +18,10 @@ class SuratMasukFactory extends Factory
     {
         return [
             'nomor_surat' => strtoupper($this->faker->bothify('###/???/##/2024')),
+            'tanggal_surat' => $this->faker->date(),
             'tanggal_masuk' => $this->faker->date(),
-            'isi_ringkasan' => $this->faker->sentence(),
-            'keterangan' => $this->faker->text(50),
-            'lokasi_file' => $this->faker->filePath(), // Simulasi path file
-            'alamat' => $this->faker->address(),
+            'pengirim' => $this->faker->company,
+            'perihal' => $this->faker->sentence(),
         ];
     }
 }

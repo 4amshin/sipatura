@@ -13,10 +13,12 @@ class SuratMasukController extends Controller
      */
     public function index()
     {
-        $daftarSuratMasuk = SuratMasuk::all();
+        $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->get();
 
-        return view('admin.surat_masuk.surat_masuk', compact('daftarSuratMasuk'));
+        return view('admin.surat_masuk.daftar_surat_masuk', compact('daftarSuratMasuk'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +35,11 @@ class SuratMasukController extends Controller
     {
         $validatedData = $request->validated();
 
+        // dd($validatedData);
+
         SuratMasuk::create($validatedData);
 
         return redirect()->route('suratMasuk.index')->with('success', 'Surat Masuk berhasil ditambahkan');
-
     }
 
     /**
@@ -75,6 +78,5 @@ class SuratMasukController extends Controller
         $suratMasuk->delete();
 
         return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk Telah Dihapus');
-
     }
 }

@@ -16,5 +16,6 @@ class SuratKeluar extends Model
         'keterangan',
         'lokasi_file',
         'alamat',
+        'file',
     ];
 }

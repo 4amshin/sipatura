@@ -29,12 +29,11 @@ class UpdateSuratMasukRequest extends FormRequest
                 'max:255',
                 Rule::unique('surat_masuks', 'nomor_surat')->ignore($this->route('suratMasuk'))
             ],
-            // 'nomor_surat' => 'required|string|max:255|unique:surat_masuks,nomor_surat,' . $this->route('suratMasuk'),
+            'tanggal_surat' => 'required|date',
             'tanggal_masuk' => 'required|date',
-            'isi_ringkasan' => 'required|string',
-            'keterangan' => 'nullable|string',
-            'lokasi_file' => 'nullable|string|max:255',
-            'alamat' => 'required|string',
+            'pengirim' => 'required|string',
+            'perihal' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
         ];
     }
 }

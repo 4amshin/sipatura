@@ -10,7 +10,11 @@
         <div class="card">
             <div class="card-body">
                 <!--Tombol Tambah Surat Masuk-->
-                <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Masuk</a>
+                {{-- <a href="{{ route('suratMasuk.create') }}" class="btn btn-primary mb-2">Tambah Surat Masuk</a> --}}
+                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
+                    data-bs-target="#tambahSuratMasukModal">
+                    Tambah Surat Masuk
+                </button>
 
                 <!--Tabel-->
                 <table class="table table-striped" id="table1">
@@ -19,11 +23,10 @@
                         <tr>
                             <th>No</th>
                             <th>Nomor Surat</th>
+                            <th>Tanggal Surat</th>
                             <th>Tanggal Masuk</th>
-                            <th>Isi Ringkasan</th>
-                            <th>Keterangan</th>
-                            <th>Lokasi File</th>
-                            <th>Alamat</th>
+                            <th>Pengirim</th>
+                            <th>Perihal</th>
                         </tr>
                     </thead>
 
@@ -37,11 +40,14 @@
                                         {{ $suratMasuk->nomor_surat }}
                                     </span>
                                 </td>
-                                <td>{{ $suratMasuk->tanggal_masuk }}</td>
-                                <td>{{ $suratMasuk->isi_ringkasan }}</td>
-                                <td>{{ $suratMasuk->keterangan }}</td>
-                                <td>{{ $suratMasuk->lokasi_file }}</td>
-                                <td>{{ $suratMasuk->alamat }}</td>
+                                <td>{{ \Carbon\Carbon::parse($suratMasuk->tanggal_surat)->format('d/m/Y') }}</td>
+                                <td>
+                                    <span class="badge bg-light-primary">
+                                        {{ \Carbon\Carbon::parse($suratMasuk->tanggal_masuk)->format('d/m/Y') }}
+                                    </span>
+                                </td>
+                                <td>{{ $suratMasuk->pengirim }}</td>
+                                <td>{{ $suratMasuk->perihal }}</td>
                                 @can('super-user')
                                     <td>
                                         <div class="dropdown">
@@ -79,4 +85,6 @@
         </div>
 
     </section>
+    <!---Modal Tambah Surat Masuk-->
+    @include('admin.surat_masuk.modal_tambah_surat_masuk')
 @endsection

@@ -11,10 +11,10 @@ class SuratMasuk extends Model
 
     protected $fillable = [
         'nomor_surat',
+        'tanggal_surat',
         'tanggal_masuk',
-        'isi_ringkasan',
-        'keterangan',
-        'lokasi_file',
-        'alamat',
+        'pengirim',
+        'perihal',
+        'file',
     ];
 }

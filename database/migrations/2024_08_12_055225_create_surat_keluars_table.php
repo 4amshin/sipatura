@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->string('lokasi_file')->nullable();
             $table->string('alamat');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

@@ -1,1 +1,3 @@
-- Implementasi Halaman Surat Masuk Beserta CRUD nya
+- Format Surat
+    - Menyimpan FIle Surat Masuk (melalui prose penambahan, atau buatkan tombol cetak)
+    - Fitur LIhat Surat

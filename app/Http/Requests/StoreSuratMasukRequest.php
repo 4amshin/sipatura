@@ -22,12 +22,12 @@ class StoreSuratMasukRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_surat' => 'required|string|unique:surat_masuks,nomor_surat|max:255',
+            'nomor_surat' => 'required|string|unique:surat_masuks,nomor_surat',
+            'tanggal_surat' => 'required|date',
             'tanggal_masuk' => 'required|date',
-            'isi_ringkasan' => 'required|string',
-            'keterangan' => 'nullable|string',
-            'lokasi_file' => 'nullable|string|max:255',
-            'alamat' => 'required|string',
+            'pengirim' => 'required|string',
+            'perihal' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
         ];
     }
 }

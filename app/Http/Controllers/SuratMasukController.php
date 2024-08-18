@@ -35,8 +35,6 @@ class SuratMasukController extends Controller
     {
         $validatedData = $request->validated();
 
-        // dd($validatedData);
-
         SuratMasuk::create($validatedData);
 
         return redirect()->route('suratMasuk.index')->with('success', 'Surat Masuk berhasil ditambahkan');

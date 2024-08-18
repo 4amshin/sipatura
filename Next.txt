@@ -1,3 +1,2 @@
-- Format Surat
-    - Menyimpan FIle Surat Masuk (melalui prose penambahan, atau buatkan tombol cetak)
-    - Fitur LIhat Surat
+- Maslah Update Surat Keluar
+    - Terdapat maslasah terkait action dan javascriptnya

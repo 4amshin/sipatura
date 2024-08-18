@@ -41,10 +41,7 @@ class SuratKeluarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SuratKeluar $suratKeluar)
-    {
-        //
-    }
+    public function show(SuratKeluar $suratKeluar) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -61,9 +58,17 @@ class SuratKeluarController extends Controller
     {
         $validatedData = $request->validated();
 
+        // Jika ada file yang diupload
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('files', 'public');
+            $validatedData['file'] = $path;
+        }
+
+        // Update surat keluar
         $suratKeluar->update($validatedData);
 
-        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar DiPerbarui');
+        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar Telah Dihapus');
     }
 
     /**

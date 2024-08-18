@@ -22,7 +22,7 @@
         <div class="container d-block">
             <a href="javascript:window.history.back();"><i class="bi bi-chevron-left"></i></a>
             <a class="navbar-brand ms-4" href="{{ route('home') }}">
-                <img src="{{ asset('assets/compiled/svg/logo.svg') }}">
+                <img src="{{ asset('assets/compiled/logo-horizontal.svg') }}">
             </a>
         </div>
     </nav>

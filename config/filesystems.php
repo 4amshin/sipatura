@@ -44,6 +44,22 @@ return [
             'throw' => false,
         ],
 
+        'public/surat-masuk' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/surat-masuk'),
+            'url' => env('APP_URL').'/storage/surat-masuk',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'public/surat-keluar' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/surat-keluar'),
+            'url' => env('APP_URL').'/storage/surat-keluar',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

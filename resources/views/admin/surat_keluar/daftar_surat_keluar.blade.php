@@ -10,10 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <!--Tombol Tambah Surat Keluar-->
-                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
-                    data-bs-target="#tambahSuratKeluarModal">
-                    Tambah Surat Keluar
-                </button>
+                <a href="{{ route('suratKeluar.create') }}" class="btn btn-primary mb-2">Tambah Surat Keluar</a>
 
                 <!--Tabel-->
                 <table class="table table-striped" id="table1">
@@ -84,6 +81,4 @@
         </div>
 
     </section>
-    <!---Modal Tambah Surat Masuk-->
-    @include('admin.surat_keluar.modal_tambah_surat_keluar')
 @endsection

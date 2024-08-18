@@ -22,13 +22,15 @@ class UpdateSuratKeluarRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->route('suratKeluar'));
+        // dd($this->route('id'));
         return [
             'nomor_surat' => [
                 'required',
                 'string',
-                'max:255',
                 Rule::unique('surat_keluars', 'nomor_surat')->ignore($this->route('suratKeluar'))
             ],
+            // 'nomor_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'tanggal_keluar' => 'required|date',
             'kepada' => 'required|string',

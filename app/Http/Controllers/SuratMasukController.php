@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SuratMasuk;
 use App\Http\Requests\StoreSuratMasukRequest;
 use App\Http\Requests\UpdateSuratMasukRequest;
+use Illuminate\Support\Facades\Storage;
 
 class SuratMasukController extends Controller
 {
@@ -33,12 +34,27 @@ class SuratMasukController extends Controller
      */
     public function store(StoreSuratMasukRequest $request)
     {
+        // Validasi data
         $validatedData = $request->validated();
 
+        // Cek apakah ada file yang diupload
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            //buat direktori jika belum ada
+            $this->createDirectoryIfNotExists('public/surat-masuk');
+
+            $file->store('public/surat-masuk');
+            $validatedData['file'] = $file->hashName();
+        }
+
+        // Simpan data ke database
         SuratMasuk::create($validatedData);
 
+        // Redirect dengan pesan sukses
         return redirect()->route('suratMasuk.index')->with('success', 'Surat Masuk berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -76,5 +92,20 @@ class SuratMasukController extends Controller
         $suratMasuk->delete();
 
         return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk Telah Dihapus');
+    }
+
+    protected function createDirectoryIfNotExists($path)
+    {
+        if (!Storage::exists($path)) {
+            Storage::makeDirectory($path);
+        }
+    }
+
+    // Menghapus gambar lama jika ada
+    protected function deleteOldImage($oldImage)
+    {
+        if ($oldImage) {
+            Storage::disk('public')->delete($oldImage);
+        }
     }
 }

@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-content">
             <div class="card-body">
-                <form class="form form-horizontal" action="{{ route('suratMasuk.store') }}" method="POST">
+                <form class="form form-horizontal" action="{{ route('suratMasuk.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-body">
                         <div class="row">
@@ -56,7 +56,7 @@
 
                             <!-- File -->
                             <div class="col-md-4">
-                                <label for="file">File</label>
+                                <label for="file">File <small>(PDF, Doc, Docx, Maximal 2MB)</small></label>
                             </div>
                             <div class="col-md-8 form-group">
                                 <input type="file" id="file" class="form-control" name="file">

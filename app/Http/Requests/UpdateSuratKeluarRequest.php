@@ -35,7 +35,7 @@ class UpdateSuratKeluarRequest extends FormRequest
             'tanggal_keluar' => 'required|date',
             'kepada' => 'required|string',
             'perihal' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ];
     }
 }

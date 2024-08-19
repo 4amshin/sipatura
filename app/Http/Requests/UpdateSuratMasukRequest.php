@@ -33,7 +33,7 @@ class UpdateSuratMasukRequest extends FormRequest
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
             'perihal' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,bmp|max:2048',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ];
     }
 }

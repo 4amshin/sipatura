@@ -109,10 +109,7 @@
                             <th>Diterima Tanggal</th>
                             <th>Pengirim</th>
                             <th>Perihal</th>
-                            <th>File</th> <!-- Kolom Baru -->
-                            @can('super-user')
-                                <th>Aksi</th>
-                            @endcan
+                            <th>File</th>
                         </tr>
                     </thead>
 
@@ -135,8 +132,6 @@
                                 <td>{{ $suratMasuk->pengirim }}</td>
                                 <td>{{ $suratMasuk->perihal }}</td>
                                 <td>
-                                    <!-- Tombol Lihat -->
-                                <td>
                                     @if ($suratMasuk->file)
                                         <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#fileModal"
@@ -146,7 +141,6 @@
                                     @else
                                         Tidak Ada File
                                     @endif
-                                </td>
                                 </td>
                                 @can('super-user')
                                     <td>
@@ -188,21 +182,7 @@
     </section>
 
     <!-- Modal untuk Menampilkan File PDF -->
-    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fileModalLabel">File Surat Masuk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="ExternalFiles">
-                        <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('layout.component.modal_lihat_surat', ['title' => 'File Surat Masuk'])
 
 @endsection
 

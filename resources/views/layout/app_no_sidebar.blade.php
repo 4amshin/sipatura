@@ -37,6 +37,8 @@
 
     <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
 
+    @stack('customJs')
+
 </body>
 
 </html>

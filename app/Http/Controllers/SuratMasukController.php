@@ -79,6 +79,20 @@ class SuratMasukController extends Controller
     {
         $validatedData = $request->validated();
 
+        // Cek apakah ada file yang diupload
+        $oldFile = $suratMasuk->file;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            //buat direktori jika belum ada
+            $this->createDirectoryIfNotExists('public/surat-masuk');
+
+            $file->store('public/surat-masuk');
+            $validatedData['file'] = $file->hashName();
+
+            $this->deleteOldFile($oldFile, 'public/surat-masuk');
+        }
+
         $suratMasuk->update($validatedData);
 
         return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk DiPerbarui');
@@ -101,11 +115,10 @@ class SuratMasukController extends Controller
         }
     }
 
-    // Menghapus gambar lama jika ada
-    protected function deleteOldImage($oldImage)
+    protected function deleteOldFile($oldFile, $directory)
     {
-        if ($oldImage) {
-            Storage::disk('public')->delete($oldImage);
+        if ($oldFile) {
+            Storage::disk($directory)->delete($oldFile);
         }
     }
 }

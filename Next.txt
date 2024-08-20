@@ -1,3 +1,0 @@
-- Set agar hanya file pdf yang bisa dipload dan maksimal 2mb
-- kemudian pada halman update tampilkan tombol lihat juga yang menampilkan file
-    serta tampil nama filenya

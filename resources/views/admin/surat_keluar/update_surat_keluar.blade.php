@@ -60,15 +60,24 @@
 
                             <!-- File -->
                             <div class="col-md-4">
-                                <label for="file">File</label>
+                                <label for="file">File <small>(PDF, Maximal 2MB)</small></label>
                             </div>
                             <div class="col-md-8 form-group">
-                                <input type="file" id="file" class="form-control" name="file">
-                                @if ($suratKeluar->file)
-                                    <small class="form-text text-muted">File yang sudah diupload: <a
-                                            href="{{ asset('storage/' . $suratKeluar->file) }}"
-                                            target="_blank">{{ $suratKeluar->file }}</a></small>
-                                @endif
+                                <div class="d-flex align-items-center">
+                                    <input type="file" id="file" class="form-control @error('file') is-invalid @enderror" name="file" accept=".pdf">
+                                    @if ($suratKeluar->file)
+                                        <button type="button" class="btn btn-info btn-sm ms-2" data-bs-toggle="modal"
+                                            data-bs-target="#fileModal"
+                                            data-file="{{ asset('storage/surat-keluar/' . $suratKeluar->file) }}">
+                                            Lihat
+                                        </button>
+                                    @endif
+                                </div>
+                                @error('file')
+                                    <div class="parsley-error filled" id="parsley-id-5" aria-hidden="false">
+                                        <span class="parsley-required">{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="col-sm-12 d-flex justify-content-end">
@@ -82,4 +91,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal untuk Menampilkan File PDF -->
+    @include('layout.component.modal_lihat_surat', ['title' => 'File Surat Keluar'])
 @endsection
+
+
+@push('customJs')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileModal = document.getElementById('fileModal');
+            fileModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget; // Tombol yang diklik
+                var fileUrl = button.getAttribute('data-file'); // Ambil URL file dari data attribute
+
+                // Set src dari iframe ke file yang sesuai
+                var iframe = fileModal.querySelector('#pdfViewer');
+                iframe.src = fileUrl;
+            });
+
+            fileModal.addEventListener('hidden.bs.modal', function() {
+                // Reset src dari iframe saat modal ditutup
+                var iframe = fileModal.querySelector('#pdfViewer');
+                iframe.src = '';
+            });
+        });
+    </script>
+@endpush

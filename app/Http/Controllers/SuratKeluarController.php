@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SuratKeluar;
 use App\Http\Requests\StoreSuratKeluarRequest;
 use App\Http\Requests\UpdateSuratKeluarRequest;
+use Illuminate\Support\Facades\Storage;
 
 class SuratKeluarController extends Controller
 {
@@ -33,6 +34,17 @@ class SuratKeluarController extends Controller
     {
         $validatedData = $request->validated();
 
+        // Cek apakah ada file yang diupload
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            //buat direktori jika belum ada
+            $this->createDirectoryIfNotExists('public/surat-keluar');
+
+            $file->store('public/surat-keluar');
+            $validatedData['file'] = $file->hashName();
+        }
+
         SuratKeluar::create($validatedData);
 
         return redirect()->route('suratKeluar.index')->with('success', 'Surat Keluar berhasil ditambahkan');
@@ -58,11 +70,18 @@ class SuratKeluarController extends Controller
     {
         $validatedData = $request->validated();
 
-        // Jika ada file yang diupload
+        // Cek apakah ada file yang diupload
+        $oldFile = $suratKeluar->file;
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = $file->store('files', 'public');
-            $validatedData['file'] = $path;
+
+            //buat direktori jika belum ada
+            $this->createDirectoryIfNotExists('public/surat-keluar');
+
+            $file->store('public/surat-keluar');
+            $validatedData['file'] = $file->hashName();
+
+            $this->deleteOldFile($oldFile);
         }
 
         // Update surat keluar
@@ -76,8 +95,24 @@ class SuratKeluarController extends Controller
      */
     public function destroy(SuratKeluar $suratKeluar)
     {
+        $this->deleteOldFile($suratKeluar->file);
+
         $suratKeluar->delete();
 
         return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar Telah Dihapus');
+    }
+
+    protected function createDirectoryIfNotExists($path)
+    {
+        if (!Storage::exists($path)) {
+            Storage::makeDirectory($path);
+        }
+    }
+
+    protected function deleteOldFile($oldFile)
+    {
+        if ($oldFile) {
+            Storage::disk('public/surat-keluar')->delete($oldFile);
+        }
     }
 }

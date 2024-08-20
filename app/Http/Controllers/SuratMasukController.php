@@ -90,7 +90,7 @@ class SuratMasukController extends Controller
             $file->store('public/surat-masuk');
             $validatedData['file'] = $file->hashName();
 
-            $this->deleteOldFile($oldFile, 'public/surat-masuk');
+            $this->deleteOldFile($oldFile);
         }
 
         $suratMasuk->update($validatedData);
@@ -103,6 +103,8 @@ class SuratMasukController extends Controller
      */
     public function destroy(SuratMasuk $suratMasuk)
     {
+        $this->deleteOldFile($suratMasuk->file);
+
         $suratMasuk->delete();
 
         return redirect()->route('suratMasuk.index')->with('success', 'Data Surat Masuk Telah Dihapus');
@@ -115,10 +117,10 @@ class SuratMasukController extends Controller
         }
     }
 
-    protected function deleteOldFile($oldFile, $directory)
+    protected function deleteOldFile($oldFile)
     {
         if ($oldFile) {
-            Storage::disk($directory)->delete($oldFile);
+            Storage::disk('public/surat-masuk')->delete($oldFile);
         }
     }
 }

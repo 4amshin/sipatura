@@ -23,6 +23,7 @@
                             <th>Dikirim Tanggal</th>
                             <th>Kepada</th>
                             <th>Perihal</th>
+                            <th>File</th>
                         </tr>
                     </thead>
 
@@ -44,6 +45,17 @@
                                 </td>
                                 <td>{{ $suratKeluar->kepada }}</td>
                                 <td>{{ $suratKeluar->perihal }}</td>
+                                <td>
+                                    @if ($suratKeluar->file)
+                                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#fileModal"
+                                            data-file="{{ asset('storage/surat-keluar/' . $suratKeluar->file) }}">
+                                            Lihat
+                                        </button>
+                                    @else
+                                        Tidak Ada File
+                                    @endif
+                                </td>
                                 @can('super-user')
                                     <td>
                                         <div class="dropdown">
@@ -79,6 +91,30 @@
                 </table>
             </div>
         </div>
-
     </section>
+
+    <!-- Modal untuk Menampilkan File PDF -->
+    @include('layout.component.modal_lihat_surat', ['title', 'File Surat Keluar'])
 @endsection
+
+@push('customJs')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileModal = document.getElementById('fileModal');
+            fileModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget; // Tombol yang diklik
+                var fileUrl = button.getAttribute('data-file'); // Ambil URL file dari data attribute
+
+                // Set src dari iframe ke file yang sesuai
+                var iframe = fileModal.querySelector('#pdfViewer');
+                iframe.src = fileUrl;
+            });
+
+            fileModal.addEventListener('hidden.bs.modal', function() {
+                // Reset src dari iframe saat modal ditutup
+                var iframe = fileModal.querySelector('#pdfViewer');
+                iframe.src = '';
+            });
+        });
+    </script>
+@endpush

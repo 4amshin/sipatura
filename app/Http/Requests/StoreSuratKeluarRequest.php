@@ -27,7 +27,15 @@ class StoreSuratKeluarRequest extends FormRequest
             'tanggal_keluar' => 'required|date',
             'kepada' => 'required|string',
             'perihal' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'file' => 'nullable|file|mimes:pdf|max:2048',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'file.mimes' => 'File harus berupa format PDF.',
+            'file.max' => 'Ukuran file tidak boleh lebih dari 2MB.',
         ];
     }
 }

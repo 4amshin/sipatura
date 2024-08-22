@@ -15,7 +15,7 @@
             <div class="card card-primary">
                 <!--Title-->
                 <div class="card-header d-flex justify-content-center">
-                    <h4>PERSURATAN KEMENAG LUTRA</h4>
+                    <h4>ARSIP SURAT KEMENAG LUTRA</h4>
                 </div>
 
                 <!--Body-->

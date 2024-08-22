@@ -3,7 +3,7 @@
     <div class="header-top">
         <div class="container justify-content-center">
             <div class="logo">
-                <img src="{{ asset('assets/compiled/logo-text-2.svg') }}" alt="Logo">
+                <img src="{{ asset('assets/compiled/logo-horizontal.svg') }}" alt="Logo">
             </div>
             {{-- <h1>PERSURATAN KEMENAG LUTRA</h1> --}}
         </div>

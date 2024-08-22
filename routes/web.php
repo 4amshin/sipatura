@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\UserController;
@@ -19,10 +20,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
         return view('home');
     })->name('home');
 
-    Route::get('laporan', function() {
-        return view('admin.laporan.laporan');
-    })->name('laporan');
-
     /*----------------------------------------USER--------------------------------------*/
     Route::resource('user', UserController::class);
     Route::post('profile/update/{user}', [UserController::class, 'updateProfile'])->name('profile.update');
@@ -35,4 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     /*----------------------------------------SURAT Keluar--------------------------------------*/
     Route::resource('suratKeluar', SuratKeluarController::class);
+
+
+    /*----------------------------------------Laporan--------------------------------------*/
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 });

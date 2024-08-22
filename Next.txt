@@ -1,5 +1,3 @@
 - Halamn Laporan
     - buat seperti sipandu
 - Tambahkan Toggle/Tombol Ubah Light-Dark Theme
-
--ubah logo

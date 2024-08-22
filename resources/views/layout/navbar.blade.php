@@ -43,7 +43,7 @@
 
                 <!--Laporan-->
                 <li class="menu-item  {{ Request::is('laporan*') ? 'active' : '' }}">
-                    <a href="{{ route('laporan') }}" class='menu-link'>
+                    <a href="{{ route('laporan.index') }}" class='menu-link'>
                         <span></i> Laporan</span>
                     </a>
                 </li>

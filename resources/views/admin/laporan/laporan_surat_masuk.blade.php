@@ -51,4 +51,7 @@
             @endforelse
         </tbody>
     </table>
+
+     <!--Tombol Cetak-->
+     <a href="{{ route('export.suratMasuk') }}" class="btn btn-primary mb-2">Cetak</a>
 </div>

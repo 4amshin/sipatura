@@ -1,19 +1,8 @@
-- Fitur Export Data Laporan
-- Tombol TOnggle Dark-light Theme
-- Modal/SweetAlert Konfirmasi Logout
-
-
-
-
-
-================
-saya telah mebuat file Export Surat Masuk:
-=========
 <?php
 
 namespace App\Exports;
 
-use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -22,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths, WithTitle
+class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths, WithTitle
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -30,23 +19,23 @@ class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, With
 
     public function title(): string
     {
-        return 'Surat Masuk';
+        return 'Surat Keluar';
     }
 
     public function collection()
     {
         $nomorUrut = 1;
-        $daftarSuratMasuk = SuratMasuk::all();
+        $daftarSuratKeluar = SuratKeluar::all();
 
-        return $daftarSuratMasuk->map(function ($suratMasuk) use (&$nomorUrut) {
+        return $daftarSuratKeluar->map(function ($suratKeluar) use (&$nomorUrut) {
             return [
                 'No' => $nomorUrut++,
-                'Nomor Surat' => $suratMasuk->nomor_surat,
-                'Tanggal Surat' => $suratMasuk->tanggal_surat,
-                'Tanggal Masuk' => $suratMasuk->tanggal_masuk,
-                'Pengirim' => $suratMasuk->pengirim,
-                'Perihal' => $suratMasuk->perihal,
-                'File' => 'Isi Dengan URL Web/storage/surat-masuk/$suratMasuk->file',
+                'Nomor Surat' => $suratKeluar->nomor_surat,
+                'Tanggal Surat' => $suratKeluar->tanggal_surat,
+                'Tanggal Keluar' => $suratKeluar->tanggal_keluar,
+                'Kepada' => $suratKeluar->kepada,
+                'Perihal' => $suratKeluar->perihal,
+                'File' => $suratKeluar->file ? url('storage/surat-keluar/' . $suratKeluar->file) : '',
             ];
         });
     }
@@ -56,8 +45,8 @@ class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, With
             'No',
             'Nomor Surat',
             'Tanggal Surat',
-            'Tanggal Masuk',
-            'Pengirim',
+            'Tanggal Keluar',
+            'Kepada',
             'Perihal',
             'File',
         ];
@@ -93,10 +82,3 @@ class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, With
         ];
     }
 }
-=========
-pada fungsi collection dibagain ini :
-'File' => 'Isi Dengan URL Web/storage/surat-masuk/$suratMasuk->file',
--------
-bagiamn cara agar disi dengan 'URL Web' dan disambung denagn /storage/surat-masuk/$suratMasuk->file
-
-dan saya ingin url webnya dinamis tegantung apakah di localhost atau sedang dihosting

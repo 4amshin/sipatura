@@ -36,4 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     /*----------------------------------------Laporan--------------------------------------*/
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+
+
+    /*----------------------------------------Export--------------------------------------*/
+    Route::get('export/surat-masuk', [LaporanController::class, 'exportSuratMasuk'])->name('export.suratMasuk');
+    Route::get('export/surat-keluar', [LaporanController::class, 'exportSuratKeluar'])->name('export.suratKeluar');
 });

@@ -1,14 +1,3 @@
-- Fitur Export Data Laporan
-- Tombol TOnggle Dark-light Theme
-- Modal/SweetAlert Konfirmasi Logout
-
-
-
-
-
-================
-saya telah mebuat file Export Surat Masuk:
-=========
 <?php
 
 namespace App\Exports;
@@ -46,7 +35,7 @@ class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, With
                 'Tanggal Masuk' => $suratMasuk->tanggal_masuk,
                 'Pengirim' => $suratMasuk->pengirim,
                 'Perihal' => $suratMasuk->perihal,
-                'File' => 'Isi Dengan URL Web/storage/surat-masuk/$suratMasuk->file',
+                'File' => $suratMasuk->file ? url('storage/surat-masuk/' . $suratMasuk->file) : '',
             ];
         });
     }
@@ -93,10 +82,3 @@ class SuratMasukExport implements FromCollection, WithHeadings, WithStyles, With
         ];
     }
 }
-=========
-pada fungsi collection dibagain ini :
-'File' => 'Isi Dengan URL Web/storage/surat-masuk/$suratMasuk->file',
--------
-bagiamn cara agar disi dengan 'URL Web' dan disambung denagn /storage/surat-masuk/$suratMasuk->file
-
-dan saya ingin url webnya dinamis tegantung apakah di localhost atau sedang dihosting

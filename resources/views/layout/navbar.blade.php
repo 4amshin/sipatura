@@ -5,13 +5,12 @@
             <div class="logo">
                 <img src="{{ asset('assets/compiled/logo-horizontal.svg') }}" alt="Logo">
             </div>
-            {{-- <h1>PERSURATAN KEMENAG LUTRA</h1> --}}
         </div>
 
         <!-- Burger button responsive -->
-        {{-- <a href="#" class="burger-btn d-block d-xl-none">
+        <a href="#" class="burger-btn d-block d-xl-none">
             <i class="bi bi-justify fs-3"></i>
-        </a> --}}
+        </a>
     </div>
 
     <!--Navbar-->
@@ -49,16 +48,15 @@
                 </li>
 
                 <!--LogOut-->
-                <li class="menu-item  ">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class='menu-link'
-                            style="background: none; border: none; cursor: pointer;">
-                            <span>LogOut</span>
-                        </button>
-                    </form>
+                <li class="menu-item">
+                    <a href="#" class='menu-link' data-bs-toggle="modal" data-bs-target="#logoutModal">
+                        <span>LogOut</span>
+                    </a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
+
+<!-- Modal Konfirmasi Logout -->
+@include('layout.component.modal_logout')

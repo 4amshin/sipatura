@@ -70,20 +70,24 @@
                                                 </a>
 
                                                 <!--Tombol Hapus-->
-                                                <form action="{{ route('suratMasuk.destroy', $suratMasuk->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item">
-                                                        <i class="bi bi-trash3"></i> Hapus
-                                                    </button>
-                                                </form>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmDeleteModal{{ $suratMasuk->id }}">
+                                                    <i class="bi bi-trash3"></i> Hapus
+                                                </button>
 
                                             </div>
                                         </div>
                                     </td>
                                 @endcan
                             </tr>
+
+                            <!-- Include Modal Konfirmasi Hapus -->
+                            @include('layout.component.modal_hapus_surat', [
+                                'id' => $suratMasuk->id,
+                                'item' => 'surat masuk',
+                                'route' => route('suratMasuk.destroy', $suratMasuk->id),
+                            ])
+
                         @empty
                             <tr>
                                 <td colspan="8" class="text-center">Data Kosong</td>

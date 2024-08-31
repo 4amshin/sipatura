@@ -50,6 +50,6 @@
         </tbody>
     </table>
 
-     <!--Tombol Cetak-->
-     <a href="{{ route('export.suratKeluar') }}" class="btn btn-primary mb-2">Cetak</a>
+    <!--Tombol Cetak-->
+    <a href="{{ route('export.suratKeluar') }}" class="btn btn-primary mb-2">Cetak</a>
 </div>

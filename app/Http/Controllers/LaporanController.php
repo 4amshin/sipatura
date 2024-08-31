@@ -11,7 +11,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->get();
         $daftarSuratKeluar = SuratKeluar::orderBy('tanggal_keluar', 'desc')->get();
 
@@ -31,13 +32,15 @@ class LaporanController extends Controller
         return view('admin.laporan.laporan', compact('tabs', 'daftarSuratMasuk', 'daftarSuratKeluar'));
     }
 
-    public function exportSuratMasuk() {
+    public function exportSuratMasuk()
+    {
         $namaFile = 'surat_masuk_' . Carbon::now()->format('d-m-y') . '.xlsx';
 
         return Excel::download(new SuratMasukExport, $namaFile);
     }
 
-    public function exportSuratKeluar() {
+    public function exportSuratKeluar()
+    {
         $namaFile = 'surat_keluar_' . Carbon::now()->format('d-m-y') . '.xlsx';
 
         return Excel::download(new SuratKeluarExport, $namaFile);

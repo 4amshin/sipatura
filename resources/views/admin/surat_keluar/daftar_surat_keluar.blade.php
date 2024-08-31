@@ -65,25 +65,30 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <!--Tombol Update-->
-                                                <a href="{{ route('suratKeluar.edit', $suratKeluar->id) }}" class="dropdown-item">
+                                                <a href="{{ route('suratKeluar.edit', $suratKeluar->id) }}"
+                                                    class="dropdown-item">
                                                     <i class="bi bi-pen"></i> Edit
                                                 </a>
 
                                                 <!--Tombol Hapus-->
-                                                <form action="{{ route('suratKeluar.destroy', $suratKeluar->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item">
-                                                        <i class="bi bi-trash3"></i> Hapus
-                                                    </button>
-                                                </form>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmDeleteModal{{ $suratKeluar->id }}">
+                                                    <i class="bi bi-trash3"></i> Hapus
+                                                </button>
 
                                             </div>
                                         </div>
                                     </td>
                                 @endcan
                             </tr>
+
+                            <!-- Include Modal Konfirmasi Hapus -->
+                            @include('layout.component.modal_hapus_surat', [
+                                'id' => $suratKeluar->id,
+                                'item' => 'surat keluar',
+                                'route' => route('suratKeluar.destroy', $suratKeluar->id),
+                            ])
+
                         @empty
                             Data Kosong
                         @endforelse

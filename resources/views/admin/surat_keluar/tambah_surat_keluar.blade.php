@@ -8,7 +8,8 @@
     <div class="card">
         <div class="card-content">
             <div class="card-body">
-                <form class="form form-horizontal" action="{{ route('suratKeluar.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="form form-horizontal" action="{{ route('suratKeluar.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-body">
                         <div class="row">
@@ -16,7 +17,15 @@
                             <div class="col-md-4">
                                 <label for="nomor_surat">Nomor Surat</label>
                             </div>
-                            <div class="col-md-8 form-group">
+                            <div class="col-md-3 form-group">
+                                <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
+                                    <option value="" disabled selected>Pilih Divisi/Bidang</option>
+                                    @foreach ($divisi as $kode => $nama )
+                                        <option value="{{ $kode }}">{{ $nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-5 form-group">
                                 <input type="text" id="nomor_surat" class="form-control" placeholder="Nomor Surat"
                                     name="nomor_surat" value="{{ old('nomor_surat') }}" required>
                             </div>
@@ -83,3 +92,19 @@
         </div>
     </div>
 @endsection
+
+@push('customJs')
+    <script>
+        function generateNomorSurat() {
+            var divisi = document.getElementById('divisi').value;
+            var nomorSurat = document.getElementById('nomor_surat');
+
+            // Bagian format lainnya diinput manual, ini contoh untuk format "B-xxxx/Kk.21.11/..."
+            var formatAwal = "x-xxxx/";
+            var formatAkhir = "/xx.xx.x/xx/20xx"; // Contoh format akhir
+
+            // Set value input nomor surat
+            nomorSurat.value = formatAwal + divisi + formatAkhir;
+        }
+    </script>
+@endpush

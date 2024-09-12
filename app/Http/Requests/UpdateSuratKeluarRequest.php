@@ -33,6 +33,7 @@ class UpdateSuratKeluarRequest extends FormRequest
             // 'nomor_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'tanggal_keluar' => 'required|date',
+            'pengirim' => 'required|string',
             'kepada' => 'required|string',
             'perihal' => 'required|string',
             'file' => 'nullable|file|mimes:pdf|max:2048',

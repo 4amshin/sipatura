@@ -49,6 +49,19 @@
                                     value="{{ old('pengirim') }}" placeholder="Nama atau Instansi Pengirim" required>
                             </div>
 
+                            <!-- Kepada -->
+                            <div class="col-md-4">
+                                <label for="kepada">Kepada Divisi</label>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <select id="kepada" name="kepada" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Divisi/Bidang</option>
+                                    @foreach ($divisi as  $nama )
+                                        <option value="{{ $nama }}">{{ $nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <!-- Perihal -->
                             <div class="col-md-4">
                                 <label for="perihal">Perihal</label>

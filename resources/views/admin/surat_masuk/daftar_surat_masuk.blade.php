@@ -22,6 +22,7 @@
                             <th>Tanggal Surat</th>
                             <th>Diterima Tanggal</th>
                             <th>Pengirim</th>
+                            <th>Kepada Divisi</th>
                             <th>Perihal</th>
                             <th>File</th>
                         </tr>
@@ -44,6 +45,7 @@
                                     </span>
                                 </td>
                                 <td>{{ $suratMasuk->pengirim }}</td>
+                                <td>{{ $suratMasuk->kepada }}</td>
                                 <td>{{ $suratMasuk->perihal }}</td>
                                 <td>
                                     @if ($suratMasuk->file)

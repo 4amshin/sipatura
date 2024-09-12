@@ -25,6 +25,7 @@ class StoreSuratKeluarRequest extends FormRequest
             'nomor_surat' => 'required|string|unique:surat_keluars,nomor_surat|max:255',
             'tanggal_surat' => 'required|date',
             'tanggal_keluar' => 'required|date',
+            'pengirim' => 'required|string',
             'kepada' => 'required|string',
             'perihal' => 'required|string',
             'file' => 'nullable|file|mimes:pdf|max:2048',

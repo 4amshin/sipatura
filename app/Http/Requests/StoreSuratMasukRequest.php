@@ -26,6 +26,7 @@ class StoreSuratMasukRequest extends FormRequest
             'tanggal_surat' => 'required|date',
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
+            'kepada' => 'required|string',
             'perihal' => 'required|string',
             'file' => 'nullable|file|mimes:pdf|max:2048',
         ];

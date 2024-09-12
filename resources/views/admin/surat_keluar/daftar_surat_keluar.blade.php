@@ -21,6 +21,7 @@
                             <th>Nomor Surat</th>
                             <th>Tanggal Surat</th>
                             <th>Dikirim Tanggal</th>
+                            <th>Dvisi Pengirim</th>
                             <th>Kepada</th>
                             <th>Perihal</th>
                             <th>File</th>
@@ -43,6 +44,7 @@
                                         {{ \Carbon\Carbon::parse($suratKeluar->tanggal_Keluar)->format('d/m/Y') }}
                                     </span>
                                 </td>
+                                <td>{{ $suratKeluar->pengirim }}</td>
                                 <td>{{ $suratKeluar->kepada }}</td>
                                 <td>{{ $suratKeluar->perihal }}</td>
                                 <td>

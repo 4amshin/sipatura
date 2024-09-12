@@ -21,7 +21,7 @@
                                 <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
                                     <option value="" disabled selected>Pilih Divisi/Bidang</option>
                                     @foreach ($divisi as $kode => $nama )
-                                        <option value="{{ $kode }}">{{ $nama }}</option>
+                                        <option value="{{ $kode }}" data-nama="{{ $nama }}">{{ $nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -29,6 +29,9 @@
                                 <input type="text" id="nomor_surat" class="form-control" placeholder="Nomor Surat"
                                     name="nomor_surat" value="{{ old('nomor_surat') }}" required>
                             </div>
+
+                            <!-- Hidden Input untuk Pengirim -->
+                            <input type="hidden" id="pengirim" name="pengirim" value="{{ old('pengirim') }}">
 
                             <!-- Tanggal Surat -->
                             <div class="col-md-4">
@@ -96,8 +99,11 @@
 @push('customJs')
     <script>
         function generateNomorSurat() {
-            var divisi = document.getElementById('divisi').value;
+            var divisiSelect = document.getElementById('divisi');
+            var divisi = divisiSelect.value;
+            var divisiNama = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-nama');
             var nomorSurat = document.getElementById('nomor_surat');
+            var pengirim = document.getElementById('pengirim');
 
             // Bagian format lainnya diinput manual, ini contoh untuk format "B-xxxx/Kk.21.11/..."
             var formatAwal = "x-xxxx/";
@@ -105,6 +111,7 @@
 
             // Set value input nomor surat
             nomorSurat.value = formatAwal + divisi + formatAkhir;
+            pengirim.value = divisiNama;
         }
     </script>
 @endpush

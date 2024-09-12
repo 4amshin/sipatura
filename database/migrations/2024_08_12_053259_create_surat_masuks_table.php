@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tanggal_surat');
             $table->date('tanggal_masuk');
             $table->string('pengirim');
+            $table->enum('kepada', ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'])->default('UMUM');
             $table->text('perihal');
             $table->string('file')->nullable();
             $table->timestamps();

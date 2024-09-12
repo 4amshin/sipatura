@@ -26,7 +26,8 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        return view('admin.surat_masuk.tambah_surat_masuk');
+        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'];
+        return view('admin.surat_masuk.tambah_surat_masuk', compact('divisi'));
     }
 
     /**

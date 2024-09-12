@@ -13,6 +13,7 @@ class SuratKeluar extends Model
         'nomor_surat',
         'tanggal_surat',
         'tanggal_keluar',
+        'pengirim',
         'kepada',
         'perihal',
         'file'

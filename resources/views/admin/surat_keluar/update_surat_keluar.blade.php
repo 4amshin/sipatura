@@ -18,7 +18,17 @@
                             <div class="col-md-4">
                                 <label for="nomor_surat">Nomor Surat</label>
                             </div>
-                            <div class="col-md-8 form-group">
+                            <div class="col-md-3 form-group">
+                                <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
+                                    <option value="" disabled>Pilih Divisi/Bidang</option>
+                                    @foreach ($divisi as $kode => $nama)
+                                        <option value="{{ $kode }}"
+                                            {{ $suratKeluar->kepada == $kode ? 'selected' : '' }}>{{ $nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-5 form-group">
                                 <input type="text" id="nomor_surat" class="form-control" placeholder="Nomor Surat"
                                     name="nomor_surat" value="{{ old('nomor_surat', $suratKeluar->nomor_surat) }}" required>
                             </div>
@@ -46,7 +56,8 @@
                                 <label for="kepada">Kepada</label>
                             </div>
                             <div class="col-md-8 form-group">
-                                <input type="text" id="kepada" class="form-control" name="kepada" placeholder="Nama atau Instansi Tujuan"
+                                <input type="text" id="kepada" class="form-control" name="kepada"
+                                    placeholder="Nama atau Instansi Tujuan"
                                     value="{{ old('kepada', $suratKeluar->kepada) }}" required>
                             </div>
 
@@ -64,7 +75,9 @@
                             </div>
                             <div class="col-md-8 form-group">
                                 <div class="d-flex align-items-center">
-                                    <input type="file" id="file" class="form-control @error('file') is-invalid @enderror" name="file" accept=".pdf">
+                                    <input type="file" id="file"
+                                        class="form-control @error('file') is-invalid @enderror" name="file"
+                                        accept=".pdf">
                                     @if ($suratKeluar->file)
                                         <button type="button" class="btn btn-info btn-sm ms-2" data-bs-toggle="modal"
                                             data-bs-target="#fileModal"
@@ -99,6 +112,18 @@
 
 @push('customJs')
     <script>
+        function generateNomorSurat() {
+            var divisi = document.getElementById('divisi').value;
+            var nomorSurat = document.getElementById('nomor_surat');
+
+            // Bagian format lainnya diinput manual, ini contoh untuk format "B-xxxx/Kk.21.11/..."
+            var formatAwal = "x-xxxx/";
+            var formatAkhir = "/xx.xx.x/xx/20xx"; // Contoh format akhir
+
+            // Set value input nomor surat
+            nomorSurat.value = formatAwal + divisi + formatAkhir;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var fileModal = document.getElementById('fileModal');
             fileModal.addEventListener('show.bs.modal', function(event) {

@@ -14,6 +14,7 @@ class SuratMasuk extends Model
         'tanggal_surat',
         'tanggal_masuk',
         'pengirim',
+        'kepada',
         'perihal',
         'file',
     ];

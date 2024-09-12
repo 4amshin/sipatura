@@ -25,12 +25,13 @@ class SuratKeluarController extends Controller
     public function create()
     {
         $divisi = [
-            'Kk.21.11/1' => 'SEKJEN, KATOLIK, HINDU',
+            'Kk.21.11/1' => 'SEKJEN, KATOLIK',
             'Kk.21.11/2' => 'PENDIS',
             'Kk.21.11/3' => 'SEKSI PENY. HAJI & UMRAH',
             'Kk.21.11/4' => 'SEKSI BIMAS ISLAM',
             'Kk.21.11/5' => 'PENY. SYARIAH',
             'Kk.21.11/6' => 'PENY. KRISTEN',
+            'Kk.21/11/1' => 'HINDU',
         ];
 
         return view('admin.surat_keluar.tambah_surat_keluar', compact('divisi'));
@@ -70,7 +71,16 @@ class SuratKeluarController extends Controller
      */
     public function edit(SuratKeluar $suratKeluar)
     {
-        return view('admin.surat_keluar.update_surat_keluar', compact('suratKeluar'));
+        $divisi = [
+            'Kk.21.11/1' => 'SEKJEN, KATOLIK',
+            'Kk.21.11/2' => 'PENDIS',
+            'Kk.21.11/3' => 'SEKSI PENY. HAJI & UMRAH',
+            'Kk.21.11/4' => 'SEKSI BIMAS ISLAM',
+            'Kk.21.11/5' => 'PENY. SYARIAH',
+            'Kk.21.11/6' => 'PENY. KRISTEN',
+            'Kk.21/11/1' => 'HINDU',
+        ];
+        return view('admin.surat_keluar.update_surat_keluar', compact('suratKeluar', 'divisi'));
     }
 
     /**

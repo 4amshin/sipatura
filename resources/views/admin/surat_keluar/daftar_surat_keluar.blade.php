@@ -21,7 +21,7 @@
                             <th>Nomor Surat</th>
                             <th>Tanggal Surat</th>
                             <th>Dikirim Tanggal</th>
-                            <th>Dvisi Pengirim</th>
+                            <th>Divisi Pengirim</th>
                             <th>Kepada</th>
                             <th>Perihal</th>
                             <th>File</th>

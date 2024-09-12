@@ -22,8 +22,10 @@
                                 <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
                                     <option value="" disabled>Pilih Divisi/Bidang</option>
                                     @foreach ($divisi as $kode => $nama)
-                                        <option value="{{ $kode }}"
-                                            {{ $suratKeluar->kepada == $kode ? 'selected' : '' }}>{{ $nama }}
+                                        <option value="{{ $kode }}" data-kode="{{ explode('-', $kode)[0] }}"
+                                            data-nama="{{ $nama }}"
+                                            {{ old('pengirim', $suratKeluar->pengirim) == $nama ? 'selected' : '' }}>
+                                            {{ $nama }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -32,6 +34,10 @@
                                 <input type="text" id="nomor_surat" class="form-control" placeholder="Nomor Surat"
                                     name="nomor_surat" value="{{ old('nomor_surat', $suratKeluar->nomor_surat) }}" required>
                             </div>
+
+                            <!-- Hidden Input untuk Pengirim -->
+                            <input type="hidden" id="pengirim" name="pengirim"
+                                value="{{ old('pengirim', $suratKeluar->pengirim) }}">
 
                             <!-- Tanggal Surat -->
                             <div class="col-md-4">
@@ -113,16 +119,28 @@
 @push('customJs')
     <script>
         function generateNomorSurat() {
-            var divisi = document.getElementById('divisi').value;
+            var divisiSelect = document.getElementById('divisi');
+            var divisiKode = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-kode');
+            var divisiNama = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-nama');
             var nomorSurat = document.getElementById('nomor_surat');
+            var pengirim = document.getElementById('pengirim');
 
-            // Bagian format lainnya diinput manual, ini contoh untuk format "B-xxxx/Kk.21.11/..."
-            var formatAwal = "x-xxxx/";
-            var formatAkhir = "/xx.xx.x/xx/20xx"; // Contoh format akhir
+            // Ambil nomor surat saat ini
+            var currentNomorSurat = nomorSurat.value;
 
-            // Set value input nomor surat
-            nomorSurat.value = formatAwal + divisi + formatAkhir;
+            // Regex untuk mengganti kode divisi di format surat (menangani kedua format)
+            var regex = /Kk\.21(?:\.11|\/11)\/\d+/;
+
+            // Ganti bagian kode divisi lama dengan kode divisi baru yang dipilih
+            var updatedNomorSurat = currentNomorSurat.replace(regex, divisiKode);
+
+            // Set value input nomor surat dengan yang baru
+            nomorSurat.value = updatedNomorSurat;
+
+            // Set hidden input untuk pengirim
+            pengirim.value = divisiNama;
         }
+
 
         document.addEventListener('DOMContentLoaded', function() {
             var fileModal = document.getElementById('fileModal');

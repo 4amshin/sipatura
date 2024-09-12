@@ -21,7 +21,7 @@
                                 <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
                                     <option value="" disabled selected>Pilih Divisi/Bidang</option>
                                     @foreach ($divisi as $kode => $nama )
-                                        <option value="{{ $kode }}" data-nama="{{ $nama }}">{{ $nama }}</option>
+                                        <option value="{{ $kode }}" data-kode="{{ explode('-', $kode)[0] }}" data-nama="{{ $nama }}">{{ $nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -100,7 +100,7 @@
     <script>
         function generateNomorSurat() {
             var divisiSelect = document.getElementById('divisi');
-            var divisi = divisiSelect.value;
+            var divisiKode = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-kode');
             var divisiNama = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-nama');
             var nomorSurat = document.getElementById('nomor_surat');
             var pengirim = document.getElementById('pengirim');
@@ -110,7 +110,7 @@
             var formatAkhir = "/xx.xx.x/xx/20xx"; // Contoh format akhir
 
             // Set value input nomor surat
-            nomorSurat.value = formatAwal + divisi + formatAkhir;
+            nomorSurat.value = formatAwal + divisiKode + formatAkhir;
             pengirim.value = divisiNama;
         }
     </script>

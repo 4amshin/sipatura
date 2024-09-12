@@ -70,7 +70,8 @@ class SuratMasukController extends Controller
      */
     public function edit(SuratMasuk $suratMasuk)
     {
-        return view('admin.surat_masuk.update_surat_masuk', compact('suratMasuk'));
+        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'];
+        return view('admin.surat_masuk.update_surat_masuk', compact('suratMasuk', 'divisi'));
     }
 
     /**

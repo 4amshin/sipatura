@@ -56,7 +56,7 @@
                             <div class="col-md-8 form-group">
                                 <select id="kepada" name="kepada" class="form-select" required>
                                     <option value="" disabled selected>Pilih Divisi/Bidang</option>
-                                    @foreach ($divisi as  $nama )
+                                    @foreach ($divisi as $nama)
                                         <option value="{{ $nama }}">{{ $nama }}</option>
                                     @endforeach
                                 </select>

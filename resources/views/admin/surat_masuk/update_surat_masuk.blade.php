@@ -1,4 +1,3 @@
-
 @extends('layout.app_no_sidebar')
 
 @section('title', 'Update Surat Masuk')
@@ -48,7 +47,21 @@
                             </div>
                             <div class="col-md-8 form-group">
                                 <input type="text" id="pengirim" class="form-control" name="pengirim"
-                                    value="{{ old('pengirim', $suratMasuk->pengirim) }}" placeholder="Nama atau Instansi Pengirim" required>
+                                    value="{{ old('pengirim', $suratMasuk->pengirim) }}"
+                                    placeholder="Nama atau Instansi Pengirim" required>
+                            </div>
+
+                            <!-- Kepada -->
+                            <div class="col-md-4">
+                                <label for="kepada">Kepada Divisi</label>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <select id="kepada" name="kepada" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Divisi/Bidang</option>
+                                    @foreach ($divisi as $nama)
+                                        <option value="{{ $nama }}"" {{ old('kepada', $suratMasuk->kepada) == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <!-- Perihal -->
@@ -65,7 +78,9 @@
                             </div>
                             <div class="col-md-8 form-group">
                                 <div class="d-flex align-items-center">
-                                    <input type="file" id="file" class="form-control @error('file') is-invalid @enderror" name="file" accept=".pdf">
+                                    <input type="file" id="file"
+                                        class="form-control @error('file') is-invalid @enderror" name="file"
+                                        accept=".pdf">
                                     @if ($suratMasuk->file)
                                         <button type="button" class="btn btn-info btn-sm ms-2" data-bs-toggle="modal"
                                             data-bs-target="#fileModal"
@@ -118,4 +133,3 @@
         });
     </script>
 @endpush
-

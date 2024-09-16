@@ -51,5 +51,35 @@
     </table>
 
     <!--Tombol Cetak-->
-    <a href="{{ route('export.suratKeluar') }}" class="btn btn-primary mb-2">Cetak</a>
+    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#suratKeluarModal">
+        Cetak
+    </button>
+
+    <!-- Modal (Vertically Centered) -->
+    <div class="modal fade" id="suratKeluarModal" tabindex="-1" aria-labelledby="suratKeluarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="suratKeluarModalLabel">Cetak Surat Keluar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="exportForm" action="{{ route('export.suratKeluar') }}" method="GET">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Tanggal Mulai</label>
+                            <input type="date" class="form-control" id="startDate" name="start_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="endDate" class="form-label">Tanggal Akhir</label>
+                            <input type="date" class="form-control" id="endDate" name="end_date" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Cetak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

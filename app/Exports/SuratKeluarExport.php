@@ -13,9 +13,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths, WithTitle
 {
+    protected $starDate;
+    protected $endData;
     /**
      * @return \Illuminate\Support\Collection
      */
+
+    public function __construct($starDate, $endData)
+    {
+        $this->starDate = $starDate;
+        $this->endData = $endData;
+    }
 
     public function title(): string
     {
@@ -25,14 +33,16 @@ class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function collection()
     {
         $nomorUrut = 1;
-        $daftarSuratKeluar = SuratKeluar::all();
+        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$this->starDate, $this->endData])
+            ->orderBy('tanggal_keluar', 'desc')
+            ->get();
 
         return $daftarSuratKeluar->map(function ($suratKeluar) use (&$nomorUrut) {
             return [
                 'No' => $nomorUrut++,
                 'Nomor Surat' => $suratKeluar->nomor_surat,
-                'Tanggal Surat' => $suratKeluar->tanggal_surat,
-                'Tanggal Keluar' => $suratKeluar->tanggal_keluar,
+                'Tanggal Surat' => \Carbon\Carbon::parse($suratKeluar->tanggal_surat)->format('d/m/Y'),
+                'Tanggal Keluar' => \Carbon\Carbon::parse($suratKeluar->tanggal_keluar)->format('d/m/Y'),
                 'Kepada' => $suratKeluar->kepada,
                 'Perihal' => $suratKeluar->perihal,
                 'File' => $suratKeluar->file ? url('storage/surat-keluar/' . $suratKeluar->file) : '',
@@ -40,7 +50,8 @@ class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, Wit
         });
     }
 
-    public function headings(): array {
+    public function headings(): array
+    {
         return [
             'No',
             'Nomor Surat',
@@ -52,7 +63,8 @@ class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, Wit
         ];
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet)
+    {
         $daftarColumn = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
         $rataTengah = [
             'alignment' => [
@@ -63,14 +75,15 @@ class SuratKeluarExport implements FromCollection, WithHeadings, WithStyles, Wit
         ];
 
         $styles = [];
-        foreach($daftarColumn as $column) {
+        foreach ($daftarColumn as $column) {
             $styles[$column] = $rataTengah;
         }
 
         return $styles;
     }
 
-    public function columnWidths(): array {
+    public function columnWidths(): array
+    {
         return [
             'A' => 3,
             'B' => 20,

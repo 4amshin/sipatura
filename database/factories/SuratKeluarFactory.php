@@ -16,7 +16,7 @@ class SuratKeluarFactory extends Factory
      */
     public function definition(): array
     {
-        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'];
+        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTEN', 'KATOLIK', 'HINDU', 'UMUM'];
 
         return [
             'nomor_surat' => strtoupper($this->faker->bothify('###/???/##/2024')),

@@ -30,9 +30,9 @@
 
                     <!--Body-->
                     <tbody>
-                        @forelse ($daftarSuratMasuk as $suratMasuk)
+                        @forelse ($daftarSuratMasuk as $index => $suratMasuk)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $index + $daftarSuratMasuk->firstItem() }}</td>
                                 <td>
                                     <span class="badge bg-light-info">
                                         {{ $suratMasuk->nomor_surat }}
@@ -97,6 +97,13 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                <!--Navigasi Halaman-->
+                <nav class="p-3" aria-label="Page navigation">
+                    <ul class="pagination justify-content-end">
+                        {{ $daftarSuratMasuk->withQueryString()->links() }}
+                    </ul>
+                </nav>
             </div>
         </div>
     </section>

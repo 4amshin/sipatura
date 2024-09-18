@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomor_surat')->unique();
             $table->date('tanggal_surat');
             $table->date('tanggal_keluar');
-            $table->enum('pengirim', ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'])->default('UMUM');
+            $table->enum('pengirim', ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTEN', 'KATOLIK', 'HINDU', 'UMUM'])->default('UMUM');
             $table->string('kepada');
             $table->text('perihal');
             $table->string('file')->nullable();

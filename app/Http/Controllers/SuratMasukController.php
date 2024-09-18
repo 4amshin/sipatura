@@ -14,7 +14,7 @@ class SuratMasukController extends Controller
      */
     public function index()
     {
-        $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->get();
+        $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->paginate(10);
 
         return view('admin.surat_masuk.daftar_surat_masuk', compact('daftarSuratMasuk'));
     }
@@ -26,7 +26,7 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'];
+        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTEN', 'KATOLIK', 'HINDU', 'UMUM'];
         return view('admin.surat_masuk.tambah_surat_masuk', compact('divisi'));
     }
 
@@ -70,7 +70,7 @@ class SuratMasukController extends Controller
      */
     public function edit(SuratMasuk $suratMasuk)
     {
-        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTE', 'KATOLIK', 'HINDU', 'UMUM'];
+        $divisi = ['SEKJEN', 'PENDIS', 'SEKSI PENY. HAJI & UMRAH', 'SEKSI BIMAS ISLAM', 'PENY. SYARIAH', 'PENY. KRISTEN', 'KATOLIK', 'HINDU', 'UMUM'];
         return view('admin.surat_masuk.update_surat_masuk', compact('suratMasuk', 'divisi'));
     }
 

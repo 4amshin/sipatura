@@ -2,6 +2,7 @@
 
 @section('title', 'Laporan')
 
+
 @section('content')
     <section class="section">
         <div class="row">
@@ -33,5 +34,7 @@
                 </div>
             </div>
         </div>
+
     </section>
+
 @endsection

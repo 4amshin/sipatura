@@ -1,4 +1,3 @@
-- Perbaiki View Laporan (ada yang punya filter ada yg tidak)
-=======================================
-Revisi Kantor
----------
+Revisi:
+- Ubah Model input tanggal cetak, dari model menjadi input box diatas table (IMPLEMENTED BUT THE STYLE IS NOT CORRECT)
+- kotak pencarian yang hilang pada laporan yang kedua

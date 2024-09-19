@@ -38,3 +38,49 @@
     </section>
 
 @endsection
+
+@push('customJs')
+    <script>
+        // document.getElementById('searchInput').addEventListener('keyup', function() {
+        //     let input = this.value.toLowerCase();
+        //     let rows = document.querySelectorAll('#tableBody tr');
+
+        //     rows.forEach(function(row) {
+        //         let nomorSurat = row.cells[1].textContent.toLowerCase();
+        //         let pengirim = row.cells[4].textContent.toLowerCase();
+        //         let perihal = row.cells[5].textContent.toLowerCase();
+
+        //         if (nomorSurat.includes(input) || pengirim.includes(input) || perihal.includes(input)) {
+        //             row.style.display = '';
+        //         } else {
+        //             row.style.display = 'none';
+        //         }
+        //     });
+        // });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            function setupSearch(inputId, tableBodyId) {
+                document.getElementById(inputId).addEventListener('keyup', function() {
+                    let input = this.value.toLowerCase();
+                    let rows = document.querySelectorAll(`#${tableBodyId} tr`);
+
+                    rows.forEach(function(row) {
+                        let nomorSurat = row.cells[1].textContent.toLowerCase();
+                        let pengirim = row.cells[4].textContent.toLowerCase();
+                        let perihal = row.cells[5].textContent.toLowerCase();
+
+                        if (nomorSurat.includes(input) || pengirim.includes(input) || perihal
+                            .includes(input)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            setupSearch('searchInputMasuk', 'tableBodyMasuk');
+            setupSearch('searchInputKeluar', 'tableBodyKeluar');
+        });
+    </script>
+@endpush

@@ -1747,7 +1747,7 @@
                         },
                         h = {
                             sortable: !0,
-                            searchable: !0,
+                            // searchable: !0,
                             // paging: 10,
                             perPage: 10,
                             perPageSelect: [5, 10, 15, 20, 25],

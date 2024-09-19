@@ -14,8 +14,8 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->get();
-        $daftarSuratKeluar = SuratKeluar::orderBy('tanggal_keluar', 'desc')->get();
+        $daftarSuratMasuk = SuratMasuk::orderBy('tanggal_masuk', 'desc')->paginate(5);
+        $daftarSuratKeluar = SuratKeluar::orderBy('tanggal_keluar', 'desc')->paginate(5);
 
         $tabs = [
             [

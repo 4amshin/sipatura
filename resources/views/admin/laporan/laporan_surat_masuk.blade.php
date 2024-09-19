@@ -1,6 +1,6 @@
 <div class="card-body">
     <!-- Form input Tanggal Mulai dan Tanggal Akhir -->
-    <div class="d-flex">
+    <div class="d-flex justify-content-between">
         <form action="{{ route('export.suratMasuk') }}" method="GET" class="d-flex align-items-end mb-3">
             <div class="me-3">
                 <label for="startDate" class="form-label">Tanggal Mulai</label>
@@ -15,6 +15,11 @@
                 <button type="submit" class="btn btn-primary">Cetak</button>
             </div>
         </form>
+
+         <!-- Input Live Search -->
+         <div class="align-self-end">
+            <input type="text" id="searchInputMasuk" class="form-control" placeholder="Cari Surat Masuk...">
+        </div>
     </div>
 
     <!--Tabel-->
@@ -33,10 +38,10 @@
         </thead>
 
         <!--Body-->
-        <tbody>
-            @forelse ($daftarSuratMasuk as $suratMasuk)
+        <tbody id="tableBodyMasuk">
+            @forelse ($daftarSuratMasuk as $index => $suratMasuk)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $index + $daftarSuratMasuk->firstItem() }}</td>
                     <td>
                         <span class="badge bg-light-info">
                             {{ $suratMasuk->nomor_surat }}
@@ -70,4 +75,10 @@
         </tbody>
     </table>
 
+    <!--Navigasi Halaman-->
+    <nav class="p-3" aria-label="Page navigation">
+        <ul class="pagination justify-content-end">
+            {{ $daftarSuratMasuk->withQueryString()->links() }}
+        </ul>
+    </nav>
 </div>

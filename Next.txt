@@ -1,3 +1,6 @@
 Revisi:
 - Ubah Model input tanggal cetak, dari model menjadi input box diatas table (IMPLEMENTED BUT THE STYLE IS NOT CORRECT)
+    - SELANJUTNYA KETIKA DI CETAK MUNCUL PREVIEW DAN KETIKA DI KLIK SIMPAN DOWNLOAD PDF
+
 - kotak pencarian yang hilang pada laporan yang kedua
+    - IF NO SOLUTION FOUND, CHANGE THE LAYOUT DONT USE TAB BAR

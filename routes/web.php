@@ -41,4 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     /*----------------------------------------Export--------------------------------------*/
     Route::get('export/surat-masuk', [LaporanController::class, 'exportSuratMasuk'])->name('export.suratMasuk');
     Route::get('export/surat-keluar', [LaporanController::class, 'exportSuratKeluar'])->name('export.suratKeluar');
+    route::get('export/preview-surat-masuk', [LaporanController::class, 'previewSuratMasuk'])->name('export.previewSuratMasuk');
+    Route::get('export/pdf-surat-masuk', [LaporanController::class, 'exportPdfSuratMasuk'])->name('export.pdfSuratMasuk');
+    route::get('/laporan/surat-masuk', [LaporanController::class, 'getSuratMasuk']);
 });

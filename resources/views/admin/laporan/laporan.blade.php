@@ -41,22 +41,53 @@
 
 @push('customJs')
     <script>
-        // document.getElementById('searchInput').addEventListener('keyup', function() {
-        //     let input = this.value.toLowerCase();
-        //     let rows = document.querySelectorAll('#tableBody tr');
+        document.getElementById('btnCetak').addEventListener('click', function() {
+            let startDate = document.getElementById('startDate').value;
+            let endDate = document.getElementById('endDate').value;
 
-        //     rows.forEach(function(row) {
-        //         let nomorSurat = row.cells[1].textContent.toLowerCase();
-        //         let pengirim = row.cells[4].textContent.toLowerCase();
-        //         let perihal = row.cells[5].textContent.toLowerCase();
+            if (startDate && endDate) {
+                // AJAX untuk mengambil data berdasarkan startDate dan endDate
+                fetch(`/laporan/surat-masuk?start_date=${startDate}&end_date=${endDate}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Kosongkan tabel sebelumnya
+                        let tableBody = document.getElementById('cetakTableBody');
+                        tableBody.innerHTML = '';
 
-        //         if (nomorSurat.includes(input) || pengirim.includes(input) || perihal.includes(input)) {
-        //             row.style.display = '';
-        //         } else {
-        //             row.style.display = 'none';
-        //         }
-        //     });
-        // });
+                        // Tambahkan data ke tabel
+                        data.forEach((surat, index) => {
+                            let row = `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${surat.nomor_surat}</td>
+                            <td>${new Date(surat.tanggal_surat).toLocaleDateString()}</td>
+                            <td>${new Date(surat.tanggal_masuk).toLocaleDateString()}</td>
+                            <td>${surat.pengirim}</td>
+                            <td>${surat.perihal}</td>
+                            <td>${surat.file ? '<a href="' + surat.file_url + '" target="_blank">Lihat</a>' : 'Tidak Ada File'}</td>
+                        </tr>
+                    `;
+                            tableBody.insertAdjacentHTML('beforeend', row);
+                        });
+
+                        // Tampilkan modal setelah data diisi
+                        let modal = new bootstrap.Modal(document.getElementById('cetakModal'));
+                        modal.show();
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                alert('Silakan pilih tanggal mulai dan tanggal akhir.');
+            }
+        });
+
+        // Tombol untuk mendownload PDF
+        document.getElementById('btnDownload').addEventListener('click', function() {
+            let startDate = document.getElementById('startDate').value;
+            let endDate = document.getElementById('endDate').value;
+
+            // Arahkan pengguna ke URL download PDF berdasarkan tanggal
+            window.location.href = `/laporan/surat-masuk/export?start_date=${startDate}&end_date=${endDate}`;
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             function setupSearch(inputId, tableBodyId) {

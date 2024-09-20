@@ -41,75 +41,99 @@
 
 @push('customJs')
     <script>
-        document.getElementById('btnCetak').addEventListener('click', function() {
-            let startDate = document.getElementById('startDate').value;
-            let endDate = document.getElementById('endDate').value;
-
+        // Fungsi umum untuk menampilkan data dalam modal dan memproses filter tanggal
+        function fetchAndShowData(modalId, tableBodyId, url, startDate, endDate) {
             if (startDate && endDate) {
-                // AJAX untuk mengambil data berdasarkan startDate dan endDate
-                fetch(`/laporan/surat-masuk?start_date=${startDate}&end_date=${endDate}`)
+                fetch(`${url}?start_date=${startDate}&end_date=${endDate}`)
                     .then(response => response.json())
                     .then(data => {
-                        // Kosongkan tabel sebelumnya
-                        let tableBody = document.getElementById('cetakTableBody');
+                        let tableBody = document.getElementById(tableBodyId);
                         tableBody.innerHTML = '';
 
-                        // Tambahkan data ke tabel
                         data.forEach((surat, index) => {
                             let row = `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${surat.nomor_surat}</td>
-                            <td>${new Date(surat.tanggal_surat).toLocaleDateString()}</td>
-                            <td>${new Date(surat.tanggal_masuk).toLocaleDateString()}</td>
-                            <td>${surat.pengirim}</td>
-                            <td>${surat.perihal}</td>
-                            <td>${surat.file ? '<a href="' + surat.file_url + '" target="_blank">Lihat</a>' : 'Tidak Ada File'}</td>
-                        </tr>
-                    `;
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${surat.nomor_surat}</td>
+                                <td>${new Date(surat.tanggal_surat).toLocaleDateString()}</td>
+                                <td>${surat.tanggal_masuk ? new Date(surat.tanggal_masuk).toLocaleDateString() : new Date(surat.tanggal_keluar).toLocaleDateString()}</td>
+                                <td>${surat.pengirim || surat.penerima}</td>
+                                <td>${surat.perihal}</td>
+                                <td>${surat.file ? '<a href="' + surat.file_url + '" target="_blank">Lihat</a>' : 'Tidak Ada File'}</td>
+                            </tr>
+                        `;
                             tableBody.insertAdjacentHTML('beforeend', row);
                         });
 
-                        // Tampilkan modal setelah data diisi
-                        let modal = new bootstrap.Modal(document.getElementById('cetakModal'));
+                        let modal = new bootstrap.Modal(document.getElementById(modalId));
                         modal.show();
                     })
                     .catch(error => console.error('Error:', error));
             } else {
                 alert('Silakan pilih tanggal mulai dan tanggal akhir.');
             }
-        });
+        }
 
-        // Tombol untuk mendownload PDF
-        document.getElementById('btnDownload').addEventListener('click', function() {
-            let startDate = document.getElementById('startDate').value;
-            let endDate = document.getElementById('endDate').value;
+        // Fungsi umum untuk mendownload PDF
+        function downloadPDF(url, startDate, endDate) {
+            if (startDate && endDate) {
+                window.location.href = `${url}/export?start_date=${startDate}&end_date=${endDate}`;
+            } else {
+                alert('Silakan pilih tanggal mulai dan tanggal akhir.');
+            }
+        }
 
-            // Arahkan pengguna ke URL download PDF berdasarkan tanggal
-            window.location.href = `/laporan/surat-masuk/export?start_date=${startDate}&end_date=${endDate}`;
-        });
+        // Fungsi search umum
+        function setupSearch(inputId, tableBodyId) {
+            document.getElementById(inputId).addEventListener('keyup', function() {
+                let input = this.value.toLowerCase();
+                let rows = document.querySelectorAll(`#${tableBodyId} tr`);
+
+                rows.forEach(function(row) {
+                    let nomorSurat = row.cells[1].textContent.toLowerCase();
+                    let pihakTerkait = row.cells[4].textContent.toLowerCase();
+                    let perihal = row.cells[5].textContent.toLowerCase();
+
+                    if (nomorSurat.includes(input) || pihakTerkait.includes(input) || perihal.includes(
+                            input)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
-            function setupSearch(inputId, tableBodyId) {
-                document.getElementById(inputId).addEventListener('keyup', function() {
-                    let input = this.value.toLowerCase();
-                    let rows = document.querySelectorAll(`#${tableBodyId} tr`);
+            // Event Listener untuk Surat Masuk
+            document.getElementById('btnCetakMasuk').addEventListener('click', function() {
+                let startDate = document.getElementById('startDateMasuk').value;
+                let endDate = document.getElementById('endDateMasuk').value;
+                fetchAndShowData('cetakModalMasuk', 'cetakTableBodyMasuk', '/laporan/surat-masuk',
+                    startDate, endDate);
+            });
 
-                    rows.forEach(function(row) {
-                        let nomorSurat = row.cells[1].textContent.toLowerCase();
-                        let pengirim = row.cells[4].textContent.toLowerCase();
-                        let perihal = row.cells[5].textContent.toLowerCase();
+            document.getElementById('btnDownloadMasuk').addEventListener('click', function() {
+                let startDate = document.getElementById('startDateMasuk').value;
+                let endDate = document.getElementById('endDateMasuk').value;
+                downloadPDF('/laporan/surat-masuk', startDate, endDate);
+            });
 
-                        if (nomorSurat.includes(input) || pengirim.includes(input) || perihal
-                            .includes(input)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
-            }
+            // Event Listener untuk Surat Keluar
+            document.getElementById('btnCetakKeluar').addEventListener('click', function() {
+                let startDate = document.getElementById('startDateKeluar').value;
+                let endDate = document.getElementById('endDateKeluar').value;
+                fetchAndShowData('cetakModalKeluar', 'cetakTableBodyKeluar', '/laporan/surat-keluar',
+                    startDate, endDate);
+            });
 
+            document.getElementById('btnDownloadKeluar').addEventListener('click', function() {
+                let startDate = document.getElementById('startDateKeluar').value;
+                let endDate = document.getElementById('endDateKeluar').value;
+                downloadPDF('/laporan/surat-keluar', startDate, endDate);
+            });
+
+            // Setup Search untuk Surat Masuk dan Keluar
             setupSearch('searchInputMasuk', 'tableBodyMasuk');
             setupSearch('searchInputKeluar', 'tableBodyKeluar');
         });

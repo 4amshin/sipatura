@@ -1,20 +1,20 @@
 <div class="card-body">
     <!-- Form input Tanggal Mulai dan Tanggal Akhir -->
     <div class="d-flex justify-content-between">
-        <form action="{{ route('export.suratKeluar') }}" method="GET" class="d-flex align-items-end mb-3">
+        <div class="d-flex align-items-end mb-3">
             <div class="me-3">
-                <label for="startDate" class="form-label">Tanggal Mulai</label>
-                <input type="date" class="form-control" id="startDate" name="start_date" required>
+                <label for="startDateKeluar" class="form-label">Tanggal Mulai</label>
+                <input type="date" class="form-control" id="startDateKeluar" name="start_date_keluar" required>
             </div>
             <div class="me-3">
-                <label for="endDate" class="form-label">Tanggal Akhir</label>
-                <input type="date" class="form-control" id="endDate" name="end_date" required>
+                <label for="endDateKeluar" class="form-label">Tanggal Akhir</label>
+                <input type="date" class="form-control" id="endDateKeluar" name="end_date_keluar" required>
             </div>
             <!-- Tombol Cetak -->
             <div class="align-self-end">
-                <button type="submit" class="btn btn-primary">Cetak</button>
+                <button type="button" class="btn btn-primary" id="btnCetakKeluar">Cetak</button>
             </div>
-        </form>
+        </div>
 
         <!-- Input Live Search -->
         <div class="align-self-end">
@@ -79,4 +79,38 @@
             {{ $daftarSuratKeluar->withQueryString()->links() }}
         </ul>
     </nav>
+</div>
+
+<!-- Modal untuk menampilkan data -->
+<div class="modal fade" id="cetakModalKeluar" tabindex="-1" aria-labelledby="cetakModalKeluarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cetakModalKeluarLabel">Data Surat Berdasarkan Tanggal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" id="tableCetakKeluar">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nomor Surat</th>
+                            <th>Tanggal Surat</th>
+                            <th>Dikirim Tanggal</th>
+                            <th>Kepada</th>
+                            <th>Perihal</th>
+                            <th>File</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cetakTableBodyKeluar">
+                        <!-- Data akan ditampilkan di sini -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="btnDownloadKeluar">Download PDF</button>
+            </div>
+        </div>
+    </div>
 </div>

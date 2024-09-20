@@ -19,27 +19,27 @@
     </style>
 </head>
 <body>
-    <h1>Daftar Surat Masuk</h1>
+    <h1>Daftar Surat Keluar</h1>
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nomor Surat</th>
                 <th>Tanggal Surat</th>
-                <th>Diterima Tanggal</th>
-                <th>Pengirim</th>
+                <th>DiKirim Tanggal</th>
+                <th>Kepada</th>
                 <th>Perihal</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($daftarSuratMasuk as $index => $suratMasuk)
+            @foreach ($daftarSuratKeluar as $index => $suratKeluar)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $suratMasuk->nomor_surat }}</td>
-                    <td>{{ \Carbon\Carbon::parse($suratMasuk->tanggal_surat)->format('d/m/Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($suratMasuk->tanggal_masuk)->format('d/m/Y') }}</td>
-                    <td>{{ $suratMasuk->pengirim }}</td>
-                    <td>{{ $suratMasuk->perihal }}</td>
+                    <td>{{ $suratKeluar->nomor_surat }}</td>
+                    <td>{{ \Carbon\Carbon::parse($suratKeluar->tanggal_surat)->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($suratKeluar->tanggal_keluar)->format('d/m/Y') }}</td>
+                    <td>{{ $suratKeluar->kepada }}</td>
+                    <td>{{ $suratKeluar->perihal }}</td>
                 </tr>
             @endforeach
         </tbody>

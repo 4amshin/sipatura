@@ -50,7 +50,7 @@
                     <td>{{ \Carbon\Carbon::parse($suratKeluar->tanggal_surat)->format('d/m/Y') }}</td>
                     <td>
                         <span class="badge bg-light-primary">
-                            {{ \Carbon\Carbon::parse($suratKeluar->tanggal_Keluar)->format('d/m/Y') }}
+                            {{ \Carbon\Carbon::parse($suratKeluar->tanggal_keluar)->format('d/m/Y') }}
                         </span>
                     </td>
                     <td>{{ $suratKeluar->kepada }}</td>

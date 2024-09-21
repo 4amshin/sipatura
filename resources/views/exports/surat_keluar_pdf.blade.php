@@ -20,7 +20,7 @@
 </head>
 <body>
     <h1>Daftar Surat Keluar</h1>
-    <p>{{ \Carbon\Carbon::parse($request->start_date)->translatedFormat('d/F/Y') }}  -  {{ \Carbon\Carbon::parse($request->end_date)->translatedFormat('d/F/Y') }}</p>
+    <p>{{ \Carbon\Carbon::parse($request->start_date)->translatedFormat('d F Y') }}  -  {{ \Carbon\Carbon::parse($request->end_date)->translatedFormat('d F Y') }}</p>
     <table>
         <thead>
             <tr>

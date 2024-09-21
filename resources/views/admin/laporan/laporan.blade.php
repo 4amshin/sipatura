@@ -42,7 +42,7 @@
 @push('customJs')
     <script>
         // Fungsi umum untuk menampilkan data dalam modal dan memproses filter tanggal
-        function fetchAndShowData(modalId, tableBodyId, url, startDate, endDate) {
+        function fetchAndShowData(modalId, tableBodyId, url, startDate, endDate, tanggalCetakId = null) {
             if (startDate && endDate) {
                 fetch(`${url}?start_date=${startDate}&end_date=${endDate}`)
                     .then(response => response.json())
@@ -59,11 +59,18 @@
                                 <td>${surat.tanggal_masuk ? new Date(surat.tanggal_masuk).toLocaleDateString() : new Date(surat.tanggal_keluar).toLocaleDateString()}</td>
                                 <td>${surat.pengirim || surat.penerima}</td>
                                 <td>${surat.perihal}</td>
-                                <td>${surat.file ? '<a href="' + surat.file_url + '" target="_blank">Lihat</a>' : 'Tidak Ada File'}</td>
                             </tr>
                         `;
                             tableBody.insertAdjacentHTML('beforeend', row);
                         });
+
+                        // Menampilkan tanggal di bawah judul jika elemen ID untuk tanggal disediakan
+                        if (tanggalCetakId) {
+                            let startDateFormatted = formatTanggal(new Date(startDate));
+                            let endDateFormatted = formatTanggal(new Date(endDate));
+                            document.getElementById(tanggalCetakId).textContent =
+                                `${startDateFormatted} - ${endDateFormatted}`;
+                        }
 
                         let modal = new bootstrap.Modal(document.getElementById(modalId));
                         modal.show();
@@ -72,6 +79,21 @@
             } else {
                 alert('Silakan pilih tanggal mulai dan tanggal akhir.');
             }
+        }
+
+        // Fungsi untuk format tanggal menjadi "01/Agustus/2001"
+        function formatTanggal(date) {
+            const options = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            };
+            const formattedDate = date.toLocaleDateString('id-ID', options);
+
+            // Mengganti nama bulan dari lowercase menjadi capitalize (huruf pertama kapital)
+            return formattedDate.replace(/\b\w/g, function(l) {
+                return l.toUpperCase()
+            });
         }
 
         // Fungsi umum untuk mendownload PDF
@@ -110,7 +132,7 @@
                 let startDate = document.getElementById('startDateMasuk').value;
                 let endDate = document.getElementById('endDateMasuk').value;
                 fetchAndShowData('cetakModalMasuk', 'cetakTableBodyMasuk', '/laporan/surat-masuk',
-                    startDate, endDate);
+                    startDate, endDate, 'tanggalCetakMasuk');
             });
 
             document.getElementById('btnDownloadMasuk').addEventListener('click', function() {
@@ -124,7 +146,7 @@
                 let startDate = document.getElementById('startDateKeluar').value;
                 let endDate = document.getElementById('endDateKeluar').value;
                 fetchAndShowData('cetakModalKeluar', 'cetakTableBodyKeluar', '/laporan/surat-keluar',
-                    startDate, endDate);
+                    startDate, endDate, 'tanggalCetakKeluar');
             });
 
             document.getElementById('btnDownloadKeluar').addEventListener('click', function() {

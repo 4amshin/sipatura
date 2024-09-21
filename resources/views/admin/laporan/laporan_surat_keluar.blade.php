@@ -85,13 +85,15 @@
 <div class="modal fade" id="cetakModalKeluar" tabindex="-1" aria-labelledby="cetakModalKeluarLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cetakModalKeluarLabel">Data Surat Berdasarkan Tanggal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
-                <table class="table table-striped" id="tableCetakKeluar">
-                    <thead>
+                <!-- Menampilkan tanggal sesuai format di PDF -->
+                <h1>Daftar Surat Keluar</h1>
+                <p id="tanggalCetakKeluar" class="text-muted"></p>
+                <p id="tanggalPeriodeKeluar"></p>
+
+                <!-- Tabel dengan gaya mirip dengan template PDF -->
+                <table class="table table-bordered table-striped" id="tableCetak">
+                    <thead class="table-light">
                         <tr>
                             <th>No</th>
                             <th>Nomor Surat</th>
@@ -99,7 +101,6 @@
                             <th>Dikirim Tanggal</th>
                             <th>Kepada</th>
                             <th>Perihal</th>
-                            <th>File</th>
                         </tr>
                     </thead>
                     <tbody id="cetakTableBodyKeluar">
@@ -113,3 +114,4 @@
         </div>
     </div>
 </div>
+

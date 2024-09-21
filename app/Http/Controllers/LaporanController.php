@@ -43,7 +43,9 @@ class LaporanController extends Controller
         ]);
 
         // Ambil data berdasarkan tanggal
-        $daftarSuratMasuk = SuratMasuk::whereBetween('tanggal_masuk', [$request->start_date, $request->end_date])->get();
+        $daftarSuratMasuk = SuratMasuk::whereBetween('tanggal_masuk', [$request->start_date, $request->end_date])
+            ->orderBy('tanggal_masuk', 'asc')
+            ->get();
 
         // Jika tidak ada data
         if ($daftarSuratMasuk->isEmpty()) {
@@ -51,7 +53,7 @@ class LaporanController extends Controller
         }
 
         // Generate PDF menggunakan view
-        $pdf = Pdf::loadView('exports.surat_masuk_pdf', compact('daftarSuratMasuk'));
+        $pdf = Pdf::loadView('exports.surat_masuk_pdf', compact('daftarSuratMasuk', 'request'));
 
         // Unduh file PDF
         return $pdf->download('laporan_surat_masuk_' . $request->start_date . '_to_' . $request->end_date . '.pdf');
@@ -65,7 +67,9 @@ class LaporanController extends Controller
         ]);
 
         // Ambil data berdasarkan tanggal
-        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$request->start_date, $request->end_date])->get();
+        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$request->start_date, $request->end_date])
+            ->orderBy('tanggal_keluar', 'asc')
+            ->get();
 
         // Jika tidak ada data
         if ($daftarSuratKeluar->isEmpty()) {
@@ -73,7 +77,7 @@ class LaporanController extends Controller
         }
 
         // Generate PDF menggunakan view
-        $pdf = Pdf::loadView('exports.surat_keluar_pdf', compact('daftarSuratKeluar'));
+        $pdf = Pdf::loadView('exports.surat_keluar_pdf', compact('daftarSuratKeluar', 'request'));
 
         // Unduh file PDF
         return $pdf->download('laporan_surat_keluar_' . $request->start_date . '_to_' . $request->end_date . '.pdf');
@@ -84,7 +88,9 @@ class LaporanController extends Controller
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
 
-        $daftarSuratMasuk = SuratMasuk::whereBetween('tanggal_masuk', [$startDate, $endDate])->get();
+        $daftarSuratMasuk = SuratMasuk::whereBetween('tanggal_masuk', [$startDate, $endDate])
+            ->orderBy('tanggal_masuk', 'asc')
+            ->get();
 
         return response()->json($daftarSuratMasuk);
     }
@@ -93,7 +99,9 @@ class LaporanController extends Controller
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
 
-        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$startDate, $endDate])->get();
+        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$startDate, $endDate])
+            ->orderBy('tanggal_keluar', 'asc')
+            ->get();
 
         return response()->json($daftarSuratKeluar);
     }

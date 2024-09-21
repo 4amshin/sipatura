@@ -31,9 +31,9 @@
                                     value="{{ old('tanggal_surat') }}" required>
                             </div>
 
-                            <!-- Tanggal Masuk -->
+                            <!-- Diterima Tanggal -->
                             <div class="col-md-4">
-                                <label for="tanggal_masuk">Tanggal Masuk</label>
+                                <label for="tanggal_masuk">Diterima Tanggal</label>
                             </div>
                             <div class="col-md-8 form-group">
                                 <input type="date" id="tanggal_masuk" class="form-control" name="tanggal_masuk"

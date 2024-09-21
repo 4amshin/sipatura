@@ -34,24 +34,6 @@ class LaporanController extends Controller
         return view('admin.laporan.laporan', compact('tabs', 'daftarSuratMasuk', 'daftarSuratKeluar'));
     }
 
-    // public function exportSuratMasuk(Request $request)
-    // {
-    //     $namaFile = 'surat_masuk_' . Carbon::now()->format('d-m-y') . '.xlsx';
-    //     $startDate = $request->input('start_date');
-    //     $endDate = $request->input('end_date');
-
-    //     return Excel::download(new SuratMasukExport($startDate, $endDate), $namaFile);
-    // }
-
-    // public function exportSuratKeluar(Request $request)
-    // {
-    //     $namaFile = 'surat_keluar_' . Carbon::now()->format('d-m-y') . '.xlsx';
-    //     $startDate = $request->input('start_date');
-    //     $endDate = $request->input('end_date');
-
-    //     return Excel::download(new SuratKeluarExport($startDate, $endDate), $namaFile);
-    // }
-
     public function exportSuratMasuk(Request $request)
     {
         // Validasi tanggal

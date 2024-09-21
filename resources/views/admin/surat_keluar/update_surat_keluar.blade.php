@@ -48,13 +48,13 @@
                                     value="{{ old('tanggal_surat', $suratKeluar->tanggal_surat) }}" required>
                             </div>
 
-                            <!-- Tanggal Keluar -->
+                            <!-- Dikirim Tanggal -->
                             <div class="col-md-4">
-                                <label for="tanggal_keluar">Tanggal Keluar</label>
+                                <label for="tanggal_keluar">Dikirim Tanggal</label>
                             </div>
                             <div class="col-md-8 form-group">
                                 <input type="date" id="tanggal_keluar" class="form-control" name="tanggal_keluar"
-                                    value="{{ old('tanggal_keluar', $suratKeluar->tanggal_keluar) }}" required>
+                                    value="{{ $suratKeluar->tanggal_keluar }}" required>
                             </div>
 
                             <!-- Kepada -->

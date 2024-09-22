@@ -85,9 +85,12 @@
 <div class="modal fade" id="cetakModalKeluar" tabindex="-1" aria-labelledby="cetakModalKeluarLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
                 <!-- Menampilkan tanggal sesuai format di PDF -->
-                <h1>Daftar Surat Keluar</h1>
+                <h1>Laporan Surat Keluar</h1>
                 <p id="tanggalCetakKeluar" class="text-muted"></p>
                 <p id="tanggalPeriodeKeluar"></p>
 
@@ -109,6 +112,7 @@
                 </table>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnPrintKeluar">Print</button>
                 <button type="button" class="btn btn-primary" id="btnDownloadKeluar">Download PDF</button>
             </div>
         </div>

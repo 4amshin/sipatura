@@ -43,4 +43,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     route::get('/laporan/surat-keluar', [LaporanController::class, 'getSuratKeluar']);
     Route::get('/laporan/surat-masuk/export', [LaporanController::class, 'exportSuratMasuk'])->name('export.suratMasuk');
     Route::get('/laporan/surat-keluar/export', [LaporanController::class, 'exportSuratKeluar'])->name('export.suratKeluar');
+    Route::get('/surat-masuk-pdf', [LaporanController::class, 'cetakSuratMasuk'])->name('surat_masuk_pdf');
+    Route::get('/surat-keluar-pdf', [LaporanController::class, 'cetakSuratKeluar'])->name('surat_keluar_pdf');
 });

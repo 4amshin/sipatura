@@ -16,10 +16,13 @@
         th {
             background-color: #f2f2f2;
         }
+        h3, p {
+            text-align: center; /* Menyelaraskan teks ke tengah */
+        }
     </style>
 </head>
 <body>
-    <h1>Daftar Surat Keluar</h1>
+    <h3>LAPORAN SURAT KELUAR KEMENTERIAN AGAMA<br>KABUPATEN LUWU UTARA</h3>
     <p>{{ \Carbon\Carbon::parse($request->start_date)->translatedFormat('d F Y') }}  -  {{ \Carbon\Carbon::parse($request->end_date)->translatedFormat('d F Y') }}</p>
     <table>
         <thead>

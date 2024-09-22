@@ -83,6 +83,26 @@ class LaporanController extends Controller
         return $pdf->download('laporan_surat_keluar_' . $request->start_date . '_to_' . $request->end_date . '.pdf');
     }
 
+    public function cetakSuratMasuk(Request $request)
+    {
+        $daftarSuratMasuk = SuratMasuk::whereBetween('tanggal_masuk', [$request->start_date, $request->end_date])
+        ->orderBy('tanggal_masuk', 'asc')
+        ->get();
+
+        $pdf = Pdf::loadView('exports.surat_masuk_pdf', compact('daftarSuratMasuk', 'request'));
+        return $pdf->stream('laporan_surat_masuk.pdf');
+    }
+
+    public function cetakSuratKeluar(Request $request)
+    {
+        $daftarSuratKeluar = SuratKeluar::whereBetween('tanggal_keluar', [$request->start_date, $request->end_date])
+        ->orderBy('tanggal_keluar', 'asc')
+        ->get();
+
+        $pdf = Pdf::loadView('exports.surat_keluar_pdf', compact('daftarSuratKeluar', 'request'));
+        return $pdf->stream('laporan_surat_keluar.pdf');
+    }
+
     public function getSuratMasuk(Request $request)
     {
         $startDate = $request->query('start_date');

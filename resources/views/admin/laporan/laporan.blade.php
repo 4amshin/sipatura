@@ -126,7 +126,30 @@
             });
         }
 
+        // Fungsi umum untuk membuka halaman PDF dan langsung mencetaknya
+        function printPDF(btnId, urlBase, startDateId, endDateId) {
+            document.getElementById(btnId).addEventListener('click', function() {
+                let startDate = document.getElementById(startDateId).value;
+                let endDate = document.getElementById(endDateId).value;
+
+                if (startDate && endDate) {
+                    // Membuka halaman PDF dalam jendela baru dengan parameter start_date dan end_date
+                    let url = `${urlBase}?start_date=${startDate}&end_date=${endDate}`;
+                    let printWindow = window.open(url, '_blank');
+                    printWindow.onload = function() {
+                        printWindow.print();
+                    };
+                } else {
+                    alert('Silakan pilih tanggal mulai dan tanggal akhir.');
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Pengaturan untuk tombol print Surat Masuk dan Surat Keluar
+            printPDF('btnPrintMasuk', '{{ route("surat_masuk_pdf") }}', 'startDateMasuk', 'endDateMasuk');
+            printPDF('btnPrintKeluar', '{{ route("surat_keluar_pdf") }}', 'startDateKeluar', 'endDateKeluar');
+
             // Event Listener untuk Surat Masuk
             document.getElementById('btnCetakMasuk').addEventListener('click', function() {
                 let startDate = document.getElementById('startDateMasuk').value;

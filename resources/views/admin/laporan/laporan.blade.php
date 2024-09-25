@@ -54,7 +54,7 @@
                             let row = `
                             <tr>
                                 <td>${index + 1}</td>
-                                <td>${surat.nomor_surat}</td>
+                                <td class="text-nowrap" style="width: 200px;">${surat.nomor_surat}</td>
                                 <td>${new Date(surat.tanggal_surat).toLocaleDateString()}</td>
                                 <td>${surat.tanggal_masuk ? new Date(surat.tanggal_masuk).toLocaleDateString() : new Date(surat.tanggal_keluar).toLocaleDateString()}</td>
                                 <td>${surat.pengirim || surat.penerima}</td>

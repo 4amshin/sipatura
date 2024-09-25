@@ -35,7 +35,22 @@ class SuratKeluarController extends Controller
             'Kk.21/11/1' => 'HINDU',
         ];
 
-        return view('admin.surat_keluar.tambah_surat_keluar', compact('divisi'));
+        // Mengambil nomor surat terakhir dari database
+        $nomorTerakhir = SuratKeluar::whereNotNull('nomor_surat')->orderBy('nomor_surat', 'desc')->first();
+
+        // Jika ada nomor surat terakhir, ekstrak nomor urutnya
+        if ($nomorTerakhir) {
+            // Ekstrak angka dari format "B-xxxx"
+            preg_match('/B-(\d+)/', $nomorTerakhir->nomor_surat, $matches);
+            $nomorUrutTerakhir = isset($matches[1]) ? (int) $matches[1] : 0;
+        } else {
+            $nomorUrutTerakhir = 0; // Jika belum ada nomor surat, mulai dari 0
+        }
+
+        // Mengirim nomor urut berikutnya ke view
+        $nomorUrutBaru = $nomorUrutTerakhir + 1;
+
+        return view('admin.surat_keluar.tambah_surat_keluar', compact('divisi', 'nomorUrutBaru'));
     }
 
 

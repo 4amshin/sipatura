@@ -20,8 +20,9 @@
                             <div class="col-md-3 form-group">
                                 <select id="divisi" class="form-select" onchange="generateNomorSurat()" required>
                                     <option value="" disabled selected>Pilih Divisi/Bidang</option>
-                                    @foreach ($divisi as $kode => $nama )
-                                        <option value="{{ $kode }}" data-kode="{{ explode('-', $kode)[0] }}" data-nama="{{ $nama }}">{{ $nama }}</option>
+                                    @foreach ($divisi as $kode => $nama)
+                                        <option value="{{ $kode }}" data-kode="{{ explode('-', $kode)[0] }}"
+                                            data-nama="{{ $nama }}">{{ $nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -98,6 +99,8 @@
 
 @push('customJs')
     <script>
+        var nomorUrutBaru = '{{ $nomorUrutBaru }}'; // Ambil nomor urut baru dari server
+
         function generateNomorSurat() {
             var divisiSelect = document.getElementById('divisi');
             var divisiKode = divisiSelect.options[divisiSelect.selectedIndex].getAttribute('data-kode');
@@ -105,12 +108,28 @@
             var nomorSurat = document.getElementById('nomor_surat');
             var pengirim = document.getElementById('pengirim');
 
-            // Bagian format lainnya diinput manual, ini contoh untuk format "B-xxxx/Kk.21.11/..."
-            var formatAwal = "x-xxxx/";
-            var formatAkhir = "/xx.xx.x/xx/20xx"; // Contoh format akhir
+            // Pastikan divisiKode dan divisiNama diambil dengan benar
+            if (!divisiKode || !divisiNama) {
+                nomorSurat.value = '';
+                pengirim.value = '';
+                return; // Jika tidak ada data divisi yang dipilih, kita hentikan proses
+            }
 
-            // Set value input nomor surat
-            nomorSurat.value = formatAwal + divisiKode + formatAkhir;
+            // Format dasar nomor surat
+            var formatAwal = "B-"; // Prefix "B"
+
+            // Tambahkan leading zero pada nomor urut agar selalu 4 digit
+            var nomorUrutPadded = nomorUrutBaru.toString().padStart(4, '0');
+
+            // Ambil tahun saat ini secara otomatis
+            var currentYear = new Date().getFullYear();
+
+
+            // Format akhir bisa disesuaikan
+            var formatAkhir = "/xx.xx.x/xx/" + currentYear; // Ganti dengan format akhir yang diinginkan
+
+            // Set value input nomor surat dengan format yang benar
+            nomorSurat.value = formatAwal + nomorUrutPadded + "/" + divisiKode + formatAkhir;
             pengirim.value = divisiNama;
         }
     </script>

@@ -90,8 +90,8 @@
             </div>
             <div class="modal-body">
                 <!-- Menampilkan tanggal sesuai format di PDF -->
-                <h1>Laporan Surat Keluar</h1>
-                <p id="tanggalCetakKeluar" class="text-muted"></p>
+                <h3 class="text-center">LAPORAN SURAT KELUAR KEMENTERIAN AGAMA<br>KABUPATEN LUWU UTARA</h3>
+                <p id="tanggalCetakKeluar" class="text-muted text-center"></p>
                 <p id="tanggalPeriodeKeluar"></p>
 
                 <!-- Tabel dengan gaya mirip dengan template PDF -->

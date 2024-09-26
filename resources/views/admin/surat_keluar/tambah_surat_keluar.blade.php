@@ -75,8 +75,7 @@
                             </div>
                             <div class="col-md-8 form-group">
                                 <input type="file" id="file"
-                                    class="form-control @error('file') is-invalid @enderror" name="file" accept=".pdf"
-                                    required>
+                                    class="form-control @error('file') is-invalid @enderror" name="file" accept=".pdf">
                                 @error('file')
                                     <div class="parsley-error filled" id="parsley-id-5" aria-hidden="false">
                                         <span class="parsley-required">{{ $message }}</span>

@@ -124,7 +124,7 @@ class SuratKeluarController extends Controller
         // Update surat keluar
         $suratKeluar->update($validatedData);
 
-        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar Telah Dihapus');
+        return redirect()->route('suratKeluar.index')->with('success', 'Data Surat Keluar DiPerbarui');
     }
 
     /**
